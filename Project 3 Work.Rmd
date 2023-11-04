@@ -3,28 +3,104 @@ title: "Untitled"
 author: "Heather Copley & Andy Johnson"
 date: "`r Sys.Date()`"
 output: github_document
+params:
+    education: 1
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+library(tidyverse)
+
 ```
 
-## R Markdown
+## Introduction
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+## Exploratory Data Analysis
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+[Behavioral Risk Factor Surveillance System Codebook](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://www.cdc.gov/brfss/annual_data/2015/pdf/codebook15_llcp.pdf)
 
-```{r cars}
-summary(cars)
+```{r}
+
+diabetes_data <- read_csv('diabetes_binary_health_indicators_BRFSS2015.csv') %>%
+    mutate_at(vars(-BMI, -MentHlth, -PhysHlth), as.factor) %>%
+    filter(Education == params$education)
+
+glossary <- list("Diabetes_binary" = "0 = no diabetes 1 = prediabetes 2 = diabetes"
+            ,"HighBP" = "0 = no high BP 1 = high BP"
+            ,"HighChol" = "0 = no high cholesterol 1 = high cholesterol"
+            ,"CholCheck" = "0 = no cholesterol check in 5 years 1 = yes cholesterol check in 5 years"
+            ,"BMI" = "Body Mass Index"
+            ,"Smoker" = "Have you smoked at least 100 cigarettes in your entire life? [Note: 5 packs = 100 cigarettes] 0 = no 1 = yes"
+            ,"Stroke" = "(Ever told) you had a stroke. 0 = no 1 = yes"
+            ,"HeartDiseaseorAttack" = "coronary heart disease (CHD) or myocardial infarction (MI) 0 = no 1 = yes"
+            ,"PhysActivity" = "physical activity in past 30 days - not including job 0 = no 1 = yes"
+            ,"Fruits" = "Consume Fruit 1 or more times per day 0 = no 1 = yes"
+            ,"Veggies" = "Consume Vegetables 1 or more times per day 0 = no 1 = yes"
+            ,"HvyAlcoholConsump" = "(adult men >=14 drinks per week and adult women>=7 drinks per week) 0 = no 1 = yes"
+            ,"AnyHealthcare" = "Have any kind of health care coverage, including health insurance, prepaid plans such as HMO, etc. 
+            0 = no 1 = yes"
+            ,"NoDocbcCost" = "Was there a time in the past 12 months when you needed to see a doctor but could not because of cost? 
+            0 = no 1 = yes"
+            ,"GenHlth" = "Would you say that in general your health is: 
+                    1 = Excellent, 
+                    2 = Very good, 
+                    3 = Good, 
+                    4 = Fair, 
+                    5 = Poor, 
+                    7 = Don't know/Not Sure, 
+                    9 = Refused"
+            ,"MentHlth" = "Now thinking about your mental health, which includes stress, depression, and problems with emotions, for how many days during the past 30 days was your mental health not good?"
+            ,"PhysHlth" = "Now thinking about your physical health, which includes physical illness and injury, for how many days during the past 30 days was your physical health not good?"
+            ,"DiffWalk" = "Do you have serious difficulty walking or climbing stairs? 0 = no 1 = yes"
+            ,"Sex" = "0 = female 1 = male"
+            ,"Age" = "1 = 18 <= AGE <= 24,
+                    2 = 25 <= AGE <= 29, 
+                    3 = 30 <= AGE <= 34,
+                    4 = 35 <= AGE <= 39, 
+                    5 = 40 <= AGE <= 44, 
+                    6 = 45 <= AGE <= 49, 
+                    7 = 50 <= AGE <= 54, 
+                    8 = 55 <= AGE <= 59, 
+                    9 = 60 <= AGE <= 64,
+                    10 = 65 <= AGE <= 69,
+                    11 = 70 <= AGE <= 74, 
+                    12 = 75 <= AGE <= 79, 
+                    13 = 80 <= AGE <= 99 "
+            ,"Education" = "What is the highest grade or year of school you completed? 
+                    1 = Never attended school or only kindergarten,
+                    2 = Grades 1 through 8 (Elementary),
+                    3 = Grades 9 through 11 (Some high school),
+                    4 = Grade 12 or GED (High school graduate),
+                    5 = College 1 year to 3 years (Some college or technical school),
+                    6 = College 4 years or more (College graduate),
+                    9 = Refused"
+            ,"Income" = "1 = Less than $10,000,
+                        2 = $10,000 to less than $15,000,
+                        3 = $15,000 to less than $20,000,
+                        4 = $20,000 to less than $25,000,
+                        5 = $25,000 to less than $35,000,
+                        6 = $35,000 to less than $50,000,
+                        7 = $50,000 to less than $75,000,
+                        8 = $75,000 or more") 
 ```
 
-## Including Plots
+### Univariate Analysis
 
-You can also embed plots, for example:
+```{r}
+library(summarytools)
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+print(dfSummary(diabetes_data
+                ,varnumbers = FALSE
+                ,valid.col = FALSE
+                ,graph.magnif = .8
+                ),
+      method = 'render',
+      headings = FALSE,
+      bootstrap.css = FALSE
+      )
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+## 
