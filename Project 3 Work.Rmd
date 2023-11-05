@@ -1,8 +1,9 @@
 ---
-title: "Untitled"
+title: "Project 3"
 author: "Heather Copley & Andy Johnson"
 date: "`r Sys.Date()`"
 output: github_document
+dfpring: paged
 params:
     education: 1
 ---
@@ -11,84 +12,123 @@ params:
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 
 library(tidyverse)
+library(summarytools)
+library(DT)
+library(caret)
 
 ```
 
 ## Introduction
+
+```{r, echo = FALSE}
+
+
+
+```
+
 
 ## Exploratory Data Analysis
 
 [Behavioral Risk Factor Surveillance System Codebook](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://www.cdc.gov/brfss/annual_data/2015/pdf/codebook15_llcp.pdf)
 
 ```{r}
-
+#read in data 
+#filter to parameter education
+#and format factors
 diabetes_data <- read_csv('diabetes_binary_health_indicators_BRFSS2015.csv') %>%
-    mutate_at(vars(-BMI, -MentHlth, -PhysHlth), as.factor) %>%
-    filter(Education == params$education)
+    filter(Education == params$education) %>%
+    mutate_at(vars(Diabetes_binary,
+                   HighBP,
+                   HighChol,
+                   CholCheck,
+                   Smoker,
+                   Stroke,
+                   HeartDiseaseorAttack,
+                   PhysActivity,
+                   Fruits,
+                   Veggies,
+                   HvyAlcoholConsump, 
+                   AnyHealthcare,
+                   NoDocbcCost,
+                   DiffWalk
+                  ),
+              ~factor(., 
+                      levels = c(0,1), 
+                      labels = c("no", "yes"))) %>%
+    mutate(GenHlth = factor(GenHlth, 
+                            levels = c(1:5), 
+                            labels = c("excellent", "very good", "good", "fair", "poor")),
+           Sex = factor(Sex, 
+                        levels = c(0,1), 
+                            labels = c("female", "male")),
+           Age = factor(Age,
+                        levels = c(1:13),
+                        labels = c("18-24",
+                                   "25-29",
+                                   "30-34",
+                                   "35-39",
+                                   "40-44",
+                                   "45-49",
+                                   "50-54",
+                                   "55-59",
+                                   "60-64",
+                                   "65-69",
+                                   "70-74",
+                                   "75-79",
+                                   "80-99")),
+           Education = factor(Education,
+                        levels = c(1:6),
+                        labels = c("Never attended school or only kindergarten",
+                                    "Grades 1 through 8 (Elementary)",
+                                    "Grades 9 through 11 (Some high school)",
+                                    "Grade 12 or GED (High school graduate)",
+                                    "College 1 year to 3 years (Some college or technical school)",
+                                    "College 4 years or more (College graduate)")),
+          Income = factor(Income,
+                          levels = c(1:8), 
+                            labels = c("Less than $10,000",
+                                        "$10,000 to less than $15,000",
+                                        "$15,000 to less than $20,000",
+                                        "$20,000 to less than $25,000",
+                                        "$25,000 to less than $35,000",
+                                        "$35,000 to less than $50,000",
+                                        "$50,000 to less than $75,000",
+                                        "$75,000 or more"))
+    )
 
-glossary <- list("Diabetes_binary" = "0 = no diabetes 1 = prediabetes 2 = diabetes"
-            ,"HighBP" = "0 = no high BP 1 = high BP"
-            ,"HighChol" = "0 = no high cholesterol 1 = high cholesterol"
-            ,"CholCheck" = "0 = no cholesterol check in 5 years 1 = yes cholesterol check in 5 years"
-            ,"BMI" = "Body Mass Index"
-            ,"Smoker" = "Have you smoked at least 100 cigarettes in your entire life? [Note: 5 packs = 100 cigarettes] 0 = no 1 = yes"
-            ,"Stroke" = "(Ever told) you had a stroke. 0 = no 1 = yes"
-            ,"HeartDiseaseorAttack" = "coronary heart disease (CHD) or myocardial infarction (MI) 0 = no 1 = yes"
-            ,"PhysActivity" = "physical activity in past 30 days - not including job 0 = no 1 = yes"
-            ,"Fruits" = "Consume Fruit 1 or more times per day 0 = no 1 = yes"
-            ,"Veggies" = "Consume Vegetables 1 or more times per day 0 = no 1 = yes"
-            ,"HvyAlcoholConsump" = "(adult men >=14 drinks per week and adult women>=7 drinks per week) 0 = no 1 = yes"
-            ,"AnyHealthcare" = "Have any kind of health care coverage, including health insurance, prepaid plans such as HMO, etc. 
-            0 = no 1 = yes"
-            ,"NoDocbcCost" = "Was there a time in the past 12 months when you needed to see a doctor but could not because of cost? 
-            0 = no 1 = yes"
-            ,"GenHlth" = "Would you say that in general your health is: 
-                    1 = Excellent, 
-                    2 = Very good, 
-                    3 = Good, 
-                    4 = Fair, 
-                    5 = Poor, 
-                    7 = Don't know/Not Sure, 
-                    9 = Refused"
-            ,"MentHlth" = "Now thinking about your mental health, which includes stress, depression, and problems with emotions, for how many days during the past 30 days was your mental health not good?"
-            ,"PhysHlth" = "Now thinking about your physical health, which includes physical illness and injury, for how many days during the past 30 days was your physical health not good?"
-            ,"DiffWalk" = "Do you have serious difficulty walking or climbing stairs? 0 = no 1 = yes"
-            ,"Sex" = "0 = female 1 = male"
-            ,"Age" = "1 = 18 <= AGE <= 24,
-                    2 = 25 <= AGE <= 29, 
-                    3 = 30 <= AGE <= 34,
-                    4 = 35 <= AGE <= 39, 
-                    5 = 40 <= AGE <= 44, 
-                    6 = 45 <= AGE <= 49, 
-                    7 = 50 <= AGE <= 54, 
-                    8 = 55 <= AGE <= 59, 
-                    9 = 60 <= AGE <= 64,
-                    10 = 65 <= AGE <= 69,
-                    11 = 70 <= AGE <= 74, 
-                    12 = 75 <= AGE <= 79, 
-                    13 = 80 <= AGE <= 99 "
-            ,"Education" = "What is the highest grade or year of school you completed? 
-                    1 = Never attended school or only kindergarten,
-                    2 = Grades 1 through 8 (Elementary),
-                    3 = Grades 9 through 11 (Some high school),
-                    4 = Grade 12 or GED (High school graduate),
-                    5 = College 1 year to 3 years (Some college or technical school),
-                    6 = College 4 years or more (College graduate),
-                    9 = Refused"
-            ,"Income" = "1 = Less than $10,000,
-                        2 = $10,000 to less than $15,000,
-                        3 = $15,000 to less than $20,000,
-                        4 = $20,000 to less than $25,000,
-                        5 = $25,000 to less than $35,000,
-                        6 = $35,000 to less than $50,000,
-                        7 = $50,000 to less than $75,000,
-                        8 = $75,000 or more") 
+#create a vector of column descriptions/labels
+descriptions <- c("Diabetes or prediabetes?"
+            ,"High Blood Pressure?"
+            ,"High Cholesterol?"
+            ,"Cholesterol check in the past 5 years?"
+            ,"Body Mass Index"
+            ,"Have you smoked at least 100 cigarettes in your entire life? [Note: 5 packs = 100 cigarettes]"
+            ,"(Ever told) you had a stroke?"
+            ,"Coronary heart disease (CHD) or myocardial infarction (MI)?"
+            ,"Physical activity in past 30 days - not including job?"
+            ,"Consume Fruit 1 or more times per day?"
+            ,"Consume Vegetables 1 or more times per day?"
+            ,"Heavy Alcohol Consumption (adult men >=14 drinks per week and adult women>=7 drinks per week)"
+            ,"Have any kind of health care coverage, including health insurance, prepaid plans such as HMO, etc.?"
+            ,"Was there a time in the past 12 months when you needed to see a doctor but could not because of cost?" 
+            ,"Would you say that in general your health is:" 
+            ,"Now thinking about your mental health, which includes stress, depression, and problems with emotions, for how many days during the past 30 days was your mental health not good?"
+            ,"Now thinking about your physical health, which includes physical illness and injury, for how many days during the past 30 days was your physical health not good?"
+            ,"Do you have serious difficulty walking or climbing stairs?"
+            ,"Sex"
+            ,"Age Group"
+            ,"What is the highest grade or year of school you completed?" 
+            ,"Is your annual household income from all sources:") 
+
+
+#add variable descriptions as labels
+label(diabetes_data) <- descriptions
+
 ```
 
-### Univariate Analysis
+### Summary Statistics
 
 ```{r}
-library(summarytools)
 
 print(dfSummary(diabetes_data
                 ,varnumbers = FALSE
@@ -102,5 +142,40 @@ print(dfSummary(diabetes_data
 
 ```
 
+### Contingency Tables
 
-## 
+### Plots
+
+## Modeling
+
+### Data Partition
+
+```{r}
+
+#split data into 70/20 train/test
+set.seed(42)
+train_index <- createDataPartition(diabetes_data$Diabetes_binary, p = .7, list = FALSE) 
+
+diabetes_train <- diabetes_data[train_index, ]
+diabetes_test <- diabetes_data[-train_index, ]
+
+
+```
+
+### Log Loss [Heather]
+
+### Logistic Regression [Heather]
+
+### LASSO [Andy]
+
+### Classification Tree [Andy]
+
+### Random Forest [Heather]
+
+### Ridge Regression [Andy]
+
+### Elastic Net [Heather]
+
+## Final Model Selection
+
+
