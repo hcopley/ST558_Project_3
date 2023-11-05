@@ -1,11 +1,12 @@
 ---
-title: "Project 3"
+title: "`r paste('ST 558 Project 3 </br> Education Level: ', params$title)`"
 author: "Heather Copley & Andy Johnson"
 date: "`r Sys.Date()`"
 output: github_document
 dfpring: paged
 params:
     education: 1
+    title: "Never attended school or only kindergarten"
 ---
 
 ```{r setup, include=FALSE}
@@ -17,15 +18,6 @@ library(DT)
 library(caret)
 
 ```
-
-## Introduction
-
-```{r, echo = FALSE}
-
-
-
-```
-
 
 ## Exploratory Data Analysis
 
@@ -123,6 +115,12 @@ descriptions <- c("Diabetes or prediabetes?"
 
 #add variable descriptions as labels
 label(diabetes_data) <- descriptions
+
+subtitle <- diabetes_data$Education %>%
+    droplevels() %>%
+    unique() %>%
+    as.character() %>%
+    paste0('Education Level: ', .)
 
 ```
 
