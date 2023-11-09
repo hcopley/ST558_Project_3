@@ -130,7 +130,7 @@ subtitle <- diabetes_data$Education %>%
 ### Summary Statistics
 
 ```{r}
-
+#show univariate summary statistics
 print(dfSummary(diabetes_data
                 ,varnumbers = FALSE
                 ,valid.col = FALSE
@@ -145,11 +145,78 @@ print(dfSummary(diabetes_data
 
 ### Contingency Tables
 
+#### High Blood Pressure
+
+```{r}
+
+#create contingency table of High Blood Pressure and Diabetes
+with(diabetes_data,
+    ctable( x = HighBP, 
+            y = Diabetes_binary,
+            chisq = TRUE)) %>%
+    print(method = 'render')
+
+```
+
+
+#### High Cholesterol
+
+```{r}
+
+#create contingency table of High Cholesterol Pressure and Diabetes
+with(diabetes_data,
+    ctable( x = HighChol, 
+            y = Diabetes_binary,
+            chisq = TRUE)) %>%
+    print(method = 'render')
+
+```
+
+
 ### Plots
+
+#### BMI
+
+```{r}
+#BMI boxplots
+
+ggplot(data = diabetes_data, aes(y = BMI, fill = Diabetes_binary)) + 
+    geom_boxplot()
+
+```
+
+#### Health Status (Past 30 Days)
+
+```{r}
+#reformat the not healthy days variables into long 
+health_days <- diabetes_data %>%
+    select(Diabetes_binary, MentHlth, PhysHlth) %>%
+    pivot_longer(cols = c(MentHlth, PhysHlth)) %>%
+    mutate(name = if_else(name == 'MentHlth', 'Days of Not Good Mental Health (Past 30 days)', 'Days of Not Good Physical Health (Past 30 days)')) %>%
+    mutate(Diabetes = if_else(Diabetes_binary == 'yes', 'Diabetes or Prediabetes', 'No Diabetes'))
+    
+#plot not good healthy days by diabetes
+ggplot(data = health_days, aes(x = value, fill = Diabetes)) + 
+    geom_histogram(bins =5, alpha = .5, position = "dodge", show.legend = FALSE) + 
+    facet_wrap(.~name + Diabetes) 
+
+```
+
+#### Income
+
+```{r}
+
+ggplot(data = diabetes_data, aes(y = Income, fill = Diabetes_binary)) +
+    geom_bar(position = 'dodge')
+
+```
+
 
 ## Modeling
 
 ### Data Partition
+
+We split the data into training and testing sets with 70% in the training set and 30% in the testing set.
 
 ```{r}
 
@@ -163,9 +230,78 @@ diabetes_test <- diabetes_data[-train_index, ]
 
 ```
 
+
+### Data Preprocessing
+
+We applied centering and scaling to our training and test data. 
+
+```{r}
+
+#set up center and scale from the training set
+pre_process_values <- preProcess(diabetes_train, method = c("center", "scale"))
+#apply center and scaling to both the training and test set
+train_preprocessed <- predict(pre_process_values, diabetes_train)
+test_preprocessed <- predict(pre_process_values, diabetes_test)
+
+```
+
+
+
 ### Log Loss [Heather]
 
+In binary classification problems log loss is used to measure performance by comparing the predicted values to the actual values. Log loss increases as the predicted probability diverges further away from the actual. Log loss is a value between 0 and 1 with a perfect model having a log loss of 0.
+
+We can calculate log loss as follows: 
+
+$$log loss = \frac{1}{N}\sum[y_i*log(p_i)+(1-y_i)*log(1-p_i)]$$
+Where: 
+
+* $N$ = the number of predictions
+* $y_i$ = the actual outcome of instance $i$
+* $p_i$ = the probability that the model predicts for instance $i$
+
+Logloss has some advantages over other measures of performance. It works well with imbalanced classes in the outcome variable where measures like accuracy can be misleading.
+
+We set our train control metric to logloss
+
+```{r}
+
+train_control <- trainControl(method = 'cv',
+                              number = 5,
+                              classProbs = TRUE,
+                              summaryFunction = mnLogLoss)
+
+```
+
+
 ### Logistic Regression [Heather]
+
+```{r}
+
+#note there are no tuning parameters available for this model
+set.seed(42)
+log_reg_1 <- train(Diabetes_binary ~ ., 
+                   data = train_preprocessed, 
+                   method = 'glm', family = 'binomial',
+                   trControl = train_control)
+
+log_reg_2 <- train(Diabetes_binary ~ BMI + HighBP + HighChol + MentHlth,
+                   data = train_preprocessed, 
+                   method = 'glm', family = 'binomial',
+                   trControl = train_control)
+
+log_reg_3 <- train(Diabetes_binary ~ HighBP + HeartDiseaseorAttack + AnyHealthcare,
+                   data = train_preprocessed, 
+                   method = 'glm', family = 'binomial',
+                   trControl = train_control)
+
+log_reg_1$results
+log_reg_2$results
+log_reg_3$results
+
+
+```
+
 
 ### LASSO [Andy]
 
@@ -173,9 +309,77 @@ diabetes_test <- diabetes_data[-train_index, ]
 
 ### Random Forest [Heather]
 
+```{r}
+
+set.seed(42)
+random_forest_1 <- train(Diabetes_binary ~ .,
+            data = train_preprocessed,
+            method = "rf",
+            trControl = train_control,
+            tuneGrid = data.frame(mtry = 1:15)
+            )
+
+random_forest_2 <- train(Diabetes_binary ~ BMI + HighBP + HighChol + MentHlth,
+      data = train_preprocessed,
+            method = "rf",
+            trControl = train_control,
+            tuneGrid = data.frame(mtry = 1:15)
+            )
+      
+random_forest_3 <- train(Diabetes_binary ~ BMI + HighBP + HighChol + MentHlth,
+      data = train_preprocessed,
+            method = "rf",
+            trControl = train_control,
+            tuneGrid = data.frame(mtry = 1:15)
+            )
+
+random_forest_1$results
+random_forest_2$results
+random_forest_3$results
+
+```
+
+
 ### Ridge Regression [Andy]
 
 ### Elastic Net [Heather]
+
+```{r}
+
+lambda <- seq(0, 3, 0.1)
+alpha <- seq(0, 1, 0.1)
+
+grid <- expand.grid(alpha = alpha, lambda = lambda)
+
+
+set.seed(42)
+elastic_net_1 <- train(Diabetes_binary ~ .,
+            data = train_preprocessed,
+            method = "glmnet",
+            trControl = train_control,
+            tuneGrid = grid
+            )
+
+elastic_net_2 <- train(Diabetes_binary ~ BMI + HighBP + HighChol + MentHlth,
+      data = train_preprocessed,
+            method = "glmnet",
+            trControl = train_control,
+            tuneGrid = grid
+            )
+      
+elastic_net_3 <- train(Diabetes_binary ~ BMI + HighBP + HighChol + MentHlth,
+      data = train_preprocessed,
+            method = "glmnet",
+            trControl = train_control,
+            tuneGrid = grid
+            )
+
+elastic_net_1$results
+elastic_net_2$results
+elastic_net_3$results
+
+```
+
 
 ## Final Model Selection
 
