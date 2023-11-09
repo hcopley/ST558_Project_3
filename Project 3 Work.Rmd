@@ -1,5 +1,6 @@
 ---
 title: "`r paste('ST 558 Project 3 \n Education Level: ', params$title)`"
+
 author: "Heather Copley & Andy Johnson"
 date: "`r Sys.Date()`"
 output: github_document
