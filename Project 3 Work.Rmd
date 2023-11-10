@@ -17,10 +17,22 @@ library(tidyverse)
 library(summarytools)
 library(DT)
 library(caret)
-
+library(rattle)
 ```
 
 ## Introduction
+
+This report automates the construction of exploratory analyses and prediction models using data from the 2015 [Behavioral Risk Factor Surveillance System](https://www.cdc.gov/brfss/index.html) (BRFSS). The BRFSS is a long-running telephone survey in the United States that collects data on health-related issues, behaviors, and service utilization. The primary outcome of interest in these analyses is if a respondent reports being diabetic or prediabetic. Diabetes is an chronic endocrine disorder in which the body is unable to properly regulate blood glucose levels. [Approximately one in nine U.S. adults has diabetes](https://diabetes.org/about-diabetes/statistics/about-diabetes), and this prevalence has steadily increased over the last few decades. [Prediabetes](https://www.mayoclinic.org/diseases-conditions/prediabetes/symptoms-causes/syc-20355278) is a transitional state of chronically heightened blood glucose levels that is just below the clinical threshold for diabetes. Early detection and treatment of prediabetes can restore blood glucose to normal levels, and the appropriate clinical management of diabetes can reduce long-term negative health outcomes and healthcare costs due to the disease. For these reasons, it is important to identify and understand the various personal characteristics that are associated with having diabetes.
+
+In this report, we use a subset of BRFSS data to explore a variety of factors associated with having diabetes or prediabetes, and build prediction models to estimate the probability of a survey respondent having diabetes. This report is part of a larger series of reports, each one focusing on a subset of BRFSS survey respondent defined by having a common level of education. The analyses below include descriptive statistical summaries, exploratory visualizations/graphs, and the creation and evaluation of prediction models for diabetic status.
+
+The variables used in these analyses include individually-reported characteristics such as:
+
+-   a history of chronic comorbidities (hypertension, hypercholesterolemia, heart disease, depression),
+-   a history of acute health events (heart attacks, stroke),
+-   other relevant physical characteristics (BMI, age, sex),
+-   behavorial factors that influence health (smoking, diet, physical activity), and
+-   socioeconomic factors (income, health insurance coverage, education levels).
 
 ## Exploratory Data Analysis
 
@@ -158,7 +170,6 @@ with(diabetes_data,
 
 ```
 
-
 #### High Cholesterol
 
 ```{r}
@@ -172,6 +183,18 @@ with(diabetes_data,
 
 ```
 
+#### Deferred care because of cost by Coverage Status
+
+```{r}
+
+#create contingency table of Deferred care because of cost versus Coverage
+with(diabetes_data,
+    ctable( x = AnyHealthcare, 
+            y = NoDocbcCost,
+            chisq = TRUE)) %>%
+    print(method = 'render')
+
+```
 
 ### Plots
 
@@ -211,7 +234,6 @@ ggplot(data = diabetes_data, aes(y = Income, fill = Diabetes_binary)) +
 
 ```
 
-
 ## Modeling
 
 ### Data Partition
@@ -230,10 +252,9 @@ diabetes_test <- diabetes_data[-train_index, ]
 
 ```
 
-
 ### Data Preprocessing
 
-We applied centering and scaling to our training and test data. 
+We applied centering and scaling to our training and test data.
 
 ```{r}
 
@@ -245,20 +266,17 @@ test_preprocessed <- predict(pre_process_values, diabetes_test)
 
 ```
 
-
-
 ### Log Loss [Heather]
 
 In binary classification problems log loss is used to measure performance by comparing the predicted values to the actual values. Log loss increases as the predicted probability diverges further away from the actual. Log loss is a value between 0 and 1 with a perfect model having a log loss of 0.
 
-We can calculate log loss as follows: 
+We can calculate log loss as follows:
 
-$$log loss = \frac{1}{N}\sum[y_i*log(p_i)+(1-y_i)*log(1-p_i)]$$
-Where: 
+$$log loss = \frac{1}{N}\sum[y_i*log(p_i)+(1-y_i)*log(1-p_i)]$$ Where:
 
-* $N$ = the number of predictions
-* $y_i$ = the actual outcome of instance $i$
-* $p_i$ = the probability that the model predicts for instance $i$
+-   $N$ = the number of predictions
+-   $y_i$ = the actual outcome of instance $i$
+-   $p_i$ = the probability that the model predicts for instance $i$
 
 Logloss has some advantages over other measures of performance. It works well with imbalanced classes in the outcome variable where measures like accuracy can be misleading.
 
@@ -272,7 +290,6 @@ train_control <- trainControl(method = 'cv',
                               summaryFunction = mnLogLoss)
 
 ```
-
 
 ### Logistic Regression [Heather]
 
@@ -302,10 +319,24 @@ log_reg_3$results
 
 ```
 
-
 ### LASSO [Andy]
 
 ### Classification Tree [Andy]
+
+```{r, fig.asp=1}
+
+set.seed(42)
+# train a single classification tree
+tree_fit <- train(Diabetes_binary ~ ., 
+                  data = train_preprocessed, 
+                  method = "rpart",
+                  trControl = train_control,
+                  tuneGrid = expand.grid(cp=seq(0,1,0.01)))
+
+tree_fit$bestTune
+tree_fit$finalModel
+fancyRpartPlot(tree_fit$finalModel)
+```
 
 ### Random Forest [Heather]
 
@@ -339,8 +370,22 @@ random_forest_3$results
 
 ```
 
-
 ### Ridge Regression [Andy]
+
+```{r}
+
+set.seed(42)
+lasso <- train(Diabetes_binary ~ ., 
+               data = train_preprocessed, 
+               method = 'glmnet', family = 'binomial',
+               trControl = train_control,
+               tuneGrid = expand.grid(alpha = 1, lambda = seq(0,1,0.005)))
+
+lasso$bestTune
+plot(lasso$finalModel, "lambda")
+abline(v = log(lasso$bestTune$lambda), lty = 2)
+text(x=log(lasso$bestTune$lambda), y=0, labels="Lambda for\nmin CV-LogLoss", cex=0.75, adj=0.55, srt=90)
+```
 
 ### Elastic Net [Heather]
 
@@ -380,7 +425,4 @@ elastic_net_3$results
 
 ```
 
-
 ## Final Model Selection
-
-
