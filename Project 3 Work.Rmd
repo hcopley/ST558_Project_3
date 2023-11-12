@@ -300,16 +300,19 @@ set.seed(42)
 log_reg_1 <- train(Diabetes_binary ~ ., 
                    data = train_preprocessed, 
                    method = 'glm', family = 'binomial',
+                   metric="logLoss",
                    trControl = train_control)
 
 log_reg_2 <- train(Diabetes_binary ~ BMI + HighBP + HighChol + MentHlth,
                    data = train_preprocessed, 
                    method = 'glm', family = 'binomial',
+                   metric="logLoss",
                    trControl = train_control)
 
 log_reg_3 <- train(Diabetes_binary ~ HighBP + HeartDiseaseorAttack + AnyHealthcare,
                    data = train_preprocessed, 
                    method = 'glm', family = 'binomial',
+                   metric="logLoss",
                    trControl = train_control)
 
 log_reg_1$results
@@ -321,11 +324,18 @@ log_reg_3$results
 
 ### LASSO [Andy]
 
-The [LASSO (Least Absolute Shrinkage and Selection Operator)](https://en.wikipedia.org/wiki/Lasso_(statistics)) is a regression modeling technique that adds a penalty term to the loss/cost function. The penalty term (seen below) is the sum of the absolute values of the estimated beta coefficients (also called the L1-norm or "Manhattan" distance), multiplied by a hyperparameter$$\lambda$$. This penalty term is added to the appropriate loss function, and the model estimate procedure attempts to minimize the entire quantity.
+The [LASSO (Least Absolute Shrinkage and Selection Operator)](https://en.wikipedia.org/wiki/Lasso_(statistics)) is a regression modeling technique that adds a penalty term to the loss/cost function. The penalty term (seen below) is the sum of the absolute values of the estimated beta coefficients (also called the L1-norm or "Manhattan" distance), multiplied by a hyperparameter $\lambda$. This penalty term is added to the appropriate loss function, and the model estimate procedure attempts to minimize the entire quantity.
 
-$$log loss + penalty = \frac{1}{N}\sum[y_i*log(p_i)+(1-y_i)*log(1-p_i)] + \lambda\sum||\beta||$$
+$$lasso: log loss + penalty = \frac{1}{N}\sum[y_i*log(p_i)+(1-y_i)*log(1-p_i)] + \lambda\sum||\beta||$$
 
-The first quantity (the original loss function) is minimized by choosing values for $$\beta$$ that are not equal to zero (assuming there is any signal at all). However, choosing non-zero values for $$\beta$$ will then increase the value of the penalty term. So in minimizing the entire penalized loss function, the two parts are "at odds": decreasing one part increases the other, and vice versa. The net effect is that the values of $$\beta$$ chosen in this procedure are shrunken (closer to zero) than they would be versus those found in the usual unpenalized approach. An interesting "quirk" of the...
+The first quantity (the original loss function) is minimized by choosing values for $\beta$ that are not equal to zero (assuming there is any "signal" at all present in the input variables). However, choosing non-zero values for $\beta$ will then increase the value of the penalty term. So in minimizing the entire penalized loss function, the two parts are at odds with each other: decreasing one part necessarily increases the other, and vice versa. The net effect is that the values of $\beta$ chosen in this procedure are shrunken (biased to be closer to zero) versus those found in the usual un-penalized approach. The $\lambda$ hyperparameter adjusts the relative impact of the penalty on the overall loss function. You can think of $\lambda$ as the "exchange rate that governs the amount of non-zero coefficients you can buy".
+
+The end result is that you intentionally introduce bias into the coefficients in order to reduce model variance. Models training using penalization are simpler and less likely to be overfit. An interesting side-effect of using the absolute value function in the penalty term is that the model estimates for very small coefficients often get shrunk directly to zero. In this manner, the LASSO performs variable selection.
+
+In summary, there are two reasons why you would want to use the LASSO over standard logistic regression:
+
+1.  If you have many input variables (perhaps with some collinearity issues), and you want an automated variable selection routine that performs better than stepwise/forward/backward selection, and
+2.  You want a final model that is not over-fit so it can predict well on data it hasn't yet seen (and you prefer to stay within a linear model paradigm).
 
 ```{r}
 
@@ -333,30 +343,38 @@ set.seed(42)
 lasso <- train(Diabetes_binary ~ ., 
                data = train_preprocessed, 
                method = 'glmnet', family = 'binomial',
+               metric="logLoss",
                trControl = train_control,
                tuneGrid = expand.grid(alpha = 1, lambda = seq(0,1,0.005)))
 
-lasso$bestTune
-plot(lasso$finalModel, "lambda")
-abline(v = log(lasso$bestTune$lambda), lty = 2)
-text(x=log(lasso$bestTune$lambda), y=0, labels="Lambda for\nmin CV-LogLoss", cex=0.75, adj=0.55, srt=90)
+# lasso$bestTune
+# plot(lasso$finalModel, "lambda")
+# abline(v = log(lasso$bestTune$lambda), lty = 2)
+# text(x=log(lasso$bestTune$lambda), y=0, labels="Lambda for\nmin CV-LogLoss", cex=0.75, adj=0.55, srt=90)
 ```
 
 ### Classification Tree [Andy]
+
+Classification tree models attempt to recursively partition the input feature space into local areas that maximize the homogeneity of the outcome instances contained within them. Or said more simply, classification trees find combinations of input variable values that tend to associate with one of the output variable's classes. Predictions made with classification tree models are very easy to express in simple terms, as they are just intersections of logical conditions. For example:
+
+*if (class = senior) and (credit_hours \> 120) and (parking_fines_outstanding = 0), then ready_to_graduate = yes.*
+
+For this reason, classification trees are useful for prediction models that must be directly inspected. They also innately handle interactions between variables and non-linearities by simply having an interacting effect appear in multiple "levels" of a branch of the tree. Unfortunately, individual classification trees are considered to be weak learners that are high-bias (typically underfitted). To remedy this, we often create large ensembles of classification trees, each one "grown" slightly different from each other through the use of resampling rows of the training data (bagging) and limiting the selection set at each split (random forests). Classification trees are also a poor choice if we strongly believe the underlying mechanism that generated the data was a linear combination of inputs (like a regression model).
 
 ```{r, fig.asp=1}
 
 set.seed(42)
 # train a single classification tree
-tree_fit <- train(Diabetes_binary ~ ., 
+tree <- train(Diabetes_binary ~ ., 
                   data = train_preprocessed, 
                   method = "rpart",
+                  metric="logLoss",
                   trControl = train_control,
                   tuneGrid = expand.grid(cp=seq(0,1,0.01)))
 
-tree_fit$bestTune
-tree_fit$finalModel
-fancyRpartPlot(tree_fit$finalModel)
+tree$bestTune
+tree$finalModel
+fancyRpartPlot(tree$finalModel)
 ```
 
 ### Random Forest [Heather]
@@ -364,34 +382,28 @@ fancyRpartPlot(tree_fit$finalModel)
 ```{r}
 
 set.seed(42)
-random_forest_1 <- train(Diabetes_binary ~ .,
+random_forest <- train(Diabetes_binary ~ .,
             data = train_preprocessed,
             method = "rf",
             trControl = train_control,
+            metric="logLoss",
             tuneGrid = data.frame(mtry = 1:15)
             )
 
-random_forest_2 <- train(Diabetes_binary ~ BMI + HighBP + HighChol + MentHlth,
-      data = train_preprocessed,
-            method = "rf",
-            trControl = train_control,
-            tuneGrid = data.frame(mtry = 1:15)
-            )
-      
-random_forest_3 <- train(Diabetes_binary ~ BMI + HighBP + HighChol + MentHlth,
-      data = train_preprocessed,
-            method = "rf",
-            trControl = train_control,
-            tuneGrid = data.frame(mtry = 1:15)
-            )
 
-random_forest_1$results
-random_forest_2$results
-random_forest_3$results
+random_forest$results
 
 ```
 
 ### Ridge Regression [Andy]
+
+Ridge regression can be thought of as a sibling to the LASSO: they vary only by the function/norm used in the penalty function. As seen below, the penalized loss function for ridge regression replaces the absolute value in the penalty term with a squared exponent:
+
+$$ridge: log loss + penalty = \frac{1}{N}\sum[y_i*log(p_i)+(1-y_i)*log(1-p_i)] + \lambda\sum\beta^2$$
+
+Instead of summing the absolute values of the $\beta$ coefficients, we sum their squares. This still enforces a penalty that grows along with the coefficients, but it does not force smaller estimates to zero like the LASSO does. Because of this, ridge regression does not perform variable selection.
+
+The reason you might want ridge regression over standard logistic regression and the LASSO is that you have many input variabes (perhaps with collinearity issues), and you want good out-of-sample predictive performance but don't want variable selection. In cases where you might have real-but-small effects for some inputs, the LASSO would shrink them to 0, while ridge would just shrink them smaller (but not necessarily to 0).
 
 ```{r}
 
@@ -399,13 +411,14 @@ set.seed(42)
 ridge <- train(Diabetes_binary ~ ., 
                data = train_preprocessed, 
                method = 'glmnet', family = 'binomial',
+               metric="logLoss",
                trControl = train_control,
                tuneGrid = expand.grid(alpha = 0, lambda = seq(0,1,0.005)))
 
-ridge$bestTune
-plot(ridge$finalModel, "lambda")
-abline(v = log(ridge$bestTune$lambda), lty = 2)
-text(x=log(ridge$bestTune$lambda), y=0, labels="Lambda for\nmin CV-LogLoss", cex=0.75, adj=0.55, srt=90)
+# ridge$bestTune
+# plot(ridge$finalModel, "lambda")
+# abline(v = log(ridge$bestTune$lambda), lty = 2)
+# text(x=log(ridge$bestTune$lambda), y=0, labels="Lambda for\nmin CV-LogLoss", cex=0.75, adj=0.55, srt=90)
 ```
 
 ### Elastic Net [Heather]
@@ -419,55 +432,47 @@ grid <- expand.grid(alpha = alpha, lambda = lambda)
 
 
 set.seed(42)
-elastic_net_1 <- train(Diabetes_binary ~ .,
-            data = train_preprocessed,
-            method = "glmnet",
-            trControl = train_control,
-            tuneGrid = grid
-            )
+elastic_net <- train(Diabetes_binary ~ .,
+                     data = train_preprocessed,
+                     method = "glmnet",
+                     metric="logLoss",
+                     trControl = train_control,
+                     tuneGrid = grid
+)
 
-elastic_net_2 <- train(Diabetes_binary ~ BMI + HighBP + HighChol + MentHlth,
-      data = train_preprocessed,
-            method = "glmnet",
-            trControl = train_control,
-            tuneGrid = grid
-            )
-      
-elastic_net_3 <- train(Diabetes_binary ~ BMI + HighBP + HighChol + MentHlth,
-      data = train_preprocessed,
-            method = "glmnet",
-            trControl = train_control,
-            tuneGrid = grid
-            )
 
-elastic_net_1$results
-elastic_net_2$results
-elastic_net_3$results
+
+elastic_net$results
 
 ```
 
 ## Final Model Selection
 
-OLD CODE to be re-worked (if you want it!), copy/pasted from my HW#8
-
-```{r compare_accuracy_on_test, eval=FALSE}
+```{r compare_logloss_on_test, eval=FALSE}
 # stack model objects into a list
-models <- list(tree_fit = tree_fit,
-               bagtree_fit = bagtree_fit,
-               rftree_fit = rftree_fit,
-               boosttree_fit = boosttree_fit)
+models <- list(log_reg_1 = log_reg_1,
+               log_reg_2 = log_reg_3,
+               log_reg_2 = log_reg_3,
+               tree = tree,
+               random_forest = random_forest,
+               ridge = ridge,
+               lasso = lasso,
+               elastic_net = elastic_net)
 
 # create function to extract accuracy on test dataset
-get_accuracy_on_test <- function(model){
-  test_pred <- predict(model, newdata = dat_test)
-  measures <- confusionMatrix(test_pred, dat_test$HeartDisease)$overall
-  acc <- measures["Accuracy"]
-  return( acc )
+get_logloss_on_test <- function(model){
+  test_pred <- predict(model, newdata = test_preprocessed, type="prob")
+  test_set <- data.frame(obs = test_preprocessed$Diabetes_binary, 
+                         yes = test_pred[,2],
+                         no = test_pred[,1])
+  ll <- mnLogLoss(test_set, lev = levels(test_set$obs))
+  
+  return( ll )
 }
 
 # use function to get test set accuracy numbers
-perf <- sapply(models, get_accuracy_on_test)
+perf <- sapply(models, get_logloss_on_test)
 perf
 ```
 
-The model with the highest accuracy is the `r substr(names(which.max(perf)),1,nchar(names(which.max(perf)))-13)` model with an accuracy = `r round(max(perf),3)`.
+The model with the highest accuracy is the `r substr(names(which.min(perf)),1,nchar(names(which.min(perf)))-8)` model with an accuracy = `r round(min(perf),3)`.
