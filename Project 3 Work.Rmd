@@ -321,6 +321,12 @@ log_reg_3$results
 
 ### LASSO [Andy]
 
+The [LASSO (Least Absolute Shrinkage and Selection Operator)](https://en.wikipedia.org/wiki/Lasso_(statistics)) is a regression modeling technique that adds a penalty term to the loss/cost function. The penalty term (seen below) is the sum of the absolute values of the estimated beta coefficients (also called the L1-norm or "Manhattan" distance), multiplied by a hyperparameter $$\lambda$$. This penalty term is added to the appropriate loss function, and the model estimate procedure attempts to minimize the entire quantity.
+
+$$log loss + penalty = \frac{1}{N}\sum[y_i*log(p_i)+(1-y_i)*log(1-p_i)] + \lambda\sum||\beta||$$
+
+The first quantity (the original loss function) is minimized by choosing values for $$\beta$$ that are not equal to zero (assuming there is any signal at all). However, choosing non-zero values for $$\beta$$ will then increase the value of the penalty term. So in minimizing the entire penalized loss function, the two parts are "at odds": decreasing one part increases the other, and vice versa. The net effect is that the values of $$\beta$$ chosen in this procedure are shrunken (closer to zero) than they would be in an unpenalized approach.
+
 ### Classification Tree [Andy]
 
 ```{r, fig.asp=1}
@@ -426,3 +432,27 @@ elastic_net_3$results
 ```
 
 ## Final Model Selection
+
+OLD CODE to be re-worked (if you want it!), copy/pasted from my HW#8
+
+```{r compare_accuracy_on_test, eval=FALSE}
+# stack model objects into a list
+models <- list(tree_fit = tree_fit,
+               bagtree_fit = bagtree_fit,
+               rftree_fit = rftree_fit,
+               boosttree_fit = boosttree_fit)
+
+# create function to extract accuracy on test dataset
+get_accuracy_on_test <- function(model){
+  test_pred <- predict(model, newdata = dat_test)
+  measures <- confusionMatrix(test_pred, dat_test$HeartDisease)$overall
+  acc <- measures["Accuracy"]
+  return( acc )
+}
+
+# use function to get test set accuracy numbers
+perf <- sapply(models, get_accuracy_on_test)
+perf
+```
+
+The model with the highest accuracy is the `r substr(names(which.max(perf)),1,nchar(names(which.max(perf)))-13)` model with an accuracy = `r round(max(perf),3)`.
