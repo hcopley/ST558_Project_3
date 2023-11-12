@@ -321,11 +321,26 @@ log_reg_3$results
 
 ### LASSO [Andy]
 
-The [LASSO (Least Absolute Shrinkage and Selection Operator)](https://en.wikipedia.org/wiki/Lasso_(statistics)) is a regression modeling technique that adds a penalty term to the loss/cost function. The penalty term (seen below) is the sum of the absolute values of the estimated beta coefficients (also called the L1-norm or "Manhattan" distance), multiplied by a hyperparameter $$\lambda$$. This penalty term is added to the appropriate loss function, and the model estimate procedure attempts to minimize the entire quantity.
+The [LASSO (Least Absolute Shrinkage and Selection Operator)](https://en.wikipedia.org/wiki/Lasso_(statistics)) is a regression modeling technique that adds a penalty term to the loss/cost function. The penalty term (seen below) is the sum of the absolute values of the estimated beta coefficients (also called the L1-norm or "Manhattan" distance), multiplied by a hyperparameter$$\lambda$$. This penalty term is added to the appropriate loss function, and the model estimate procedure attempts to minimize the entire quantity.
 
 $$log loss + penalty = \frac{1}{N}\sum[y_i*log(p_i)+(1-y_i)*log(1-p_i)] + \lambda\sum||\beta||$$
 
-The first quantity (the original loss function) is minimized by choosing values for $$\beta$$ that are not equal to zero (assuming there is any signal at all). However, choosing non-zero values for $$\beta$$ will then increase the value of the penalty term. So in minimizing the entire penalized loss function, the two parts are "at odds": decreasing one part increases the other, and vice versa. The net effect is that the values of $$\beta$$ chosen in this procedure are shrunken (closer to zero) than they would be in an unpenalized approach.
+The first quantity (the original loss function) is minimized by choosing values for $$\beta$$ that are not equal to zero (assuming there is any signal at all). However, choosing non-zero values for $$\beta$$ will then increase the value of the penalty term. So in minimizing the entire penalized loss function, the two parts are "at odds": decreasing one part increases the other, and vice versa. The net effect is that the values of $$\beta$$ chosen in this procedure are shrunken (closer to zero) than they would be versus those found in the usual unpenalized approach. An interesting "quirk" of the...
+
+```{r}
+
+set.seed(42)
+lasso <- train(Diabetes_binary ~ ., 
+               data = train_preprocessed, 
+               method = 'glmnet', family = 'binomial',
+               trControl = train_control,
+               tuneGrid = expand.grid(alpha = 1, lambda = seq(0,1,0.005)))
+
+lasso$bestTune
+plot(lasso$finalModel, "lambda")
+abline(v = log(lasso$bestTune$lambda), lty = 2)
+text(x=log(lasso$bestTune$lambda), y=0, labels="Lambda for\nmin CV-LogLoss", cex=0.75, adj=0.55, srt=90)
+```
 
 ### Classification Tree [Andy]
 
@@ -381,16 +396,16 @@ random_forest_3$results
 ```{r}
 
 set.seed(42)
-lasso <- train(Diabetes_binary ~ ., 
+ridge <- train(Diabetes_binary ~ ., 
                data = train_preprocessed, 
                method = 'glmnet', family = 'binomial',
                trControl = train_control,
-               tuneGrid = expand.grid(alpha = 1, lambda = seq(0,1,0.005)))
+               tuneGrid = expand.grid(alpha = 0, lambda = seq(0,1,0.005)))
 
-lasso$bestTune
-plot(lasso$finalModel, "lambda")
-abline(v = log(lasso$bestTune$lambda), lty = 2)
-text(x=log(lasso$bestTune$lambda), y=0, labels="Lambda for\nmin CV-LogLoss", cex=0.75, adj=0.55, srt=90)
+ridge$bestTune
+plot(ridge$finalModel, "lambda")
+abline(v = log(ridge$bestTune$lambda), lty = 2)
+text(x=log(ridge$bestTune$lambda), y=0, labels="Lambda for\nmin CV-LogLoss", cex=0.75, adj=0.55, srt=90)
 ```
 
 ### Elastic Net [Heather]
