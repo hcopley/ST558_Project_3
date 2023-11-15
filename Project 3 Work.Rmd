@@ -367,8 +367,6 @@ log_reg_2 <- train(Diabetes_binary ~ BMI + HighBP + HighChol + MentHlth,
                    trControl = train_control)
 
 
-
-
 log_reg_3 <- train(Diabetes_binary ~ HighBP + HeartDiseaseorAttack + AnyHealthcare,
                    data = train_preprocessed, 
                    method = 'glm', family = 'binomial',
@@ -420,6 +418,7 @@ For this reason, classification trees are useful for prediction models that must
 
 ```{r, fig.asp=1}
 
+
 set.seed(42)
 # train a single classification tree
 tree <- train(Diabetes_binary ~ ., 
@@ -431,7 +430,12 @@ tree <- train(Diabetes_binary ~ .,
 
 tree$bestTune
 tree$finalModel
+
+#if there is more than a root node in the final model then create a tree plot:
+if (length(tree$finalModel$splits) > 0) {
 fancyRpartPlot(tree$finalModel)
+
+} 
 ```
 
 ### Random Forest [Heather]
@@ -439,14 +443,14 @@ fancyRpartPlot(tree$finalModel)
 Random forest is an ensemble method which uses many trees (in our case classification trees) to predict the outcome. These trees are each fit to a different bootstrap sample of the original training set. Each bootstrap sample is sampled with replacement and has the same number of observations as the training set. Each model fit has a random selection of the variables is chosen. 
 
 
-```{r}
+```{r, eval = F}
 set.seed(42)
 random_forest <- train(Diabetes_binary ~ .,
             data = train_preprocessed,
-            method = "rf",
+            method = "ranger",
             trControl = train_control,
             metric="logLoss",
-            tuneGrid = data.frame(mtry = 1:ncol(train_preprocessed)-1)
+            tuneGrid = data.frame(mtry = 1:ncol(train_preprocessed)-1, min.node.size = 1, splitrule = 'gini')
             )
 
 #get the top n variables by importance where n = the best tune (best # of predictors chosen)
@@ -537,7 +541,7 @@ models <- list(logistic_regression_1 = log_reg_1,
                logistic_regression_2 = log_reg_2,
                logistic_regression_3 = log_reg_3,
                tree = tree,
-               random_forest = random_forest,
+               #random_forest = random_forest,
                ridge = ridge,
                lasso = lasso,
                elastic_net = elastic_net)

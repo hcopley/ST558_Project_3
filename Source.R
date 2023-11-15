@@ -6,4 +6,4 @@ rmarkdown::render("Project 3 Work.Rmd", params = list(education = 4, title = "Gr
 rmarkdown::render("Project 3 Work.Rmd", params = list(education = 5, title = "College 1 year to 3 years (Some college or technical school)" ), output_file = "College1_3")
 rmarkdown::render("Project 3 Work.Rmd", params = list(education = 6, title = "College 4 years or more (College graduate)" ), output_file = "College4")
 
-#source(Source.R)
+#source('Source.R')
