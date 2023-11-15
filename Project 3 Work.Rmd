@@ -15,7 +15,6 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 
 library(tidyverse)
 library(summarytools)
-library(DT)
 library(caret)
 library(rattle)
 ```
@@ -24,7 +23,7 @@ library(rattle)
 
 This report automates the construction of exploratory analyses and prediction models using data from the 2015 [Behavioral Risk Factor Surveillance System](https://www.cdc.gov/brfss/index.html) (BRFSS). The BRFSS is a long-running telephone survey in the United States that collects data on health-related issues, behaviors, and service utilization. The primary outcome of interest in these analyses is if a respondent reports being diabetic or prediabetic. Diabetes is an chronic endocrine disorder in which the body is unable to properly regulate blood glucose levels. [Approximately one in nine U.S. adults has diabetes](https://diabetes.org/about-diabetes/statistics/about-diabetes), and this prevalence has steadily increased over the last few decades. [Prediabetes](https://www.mayoclinic.org/diseases-conditions/prediabetes/symptoms-causes/syc-20355278) is a transitional state of chronically heightened blood glucose levels that is just below the clinical threshold for diabetes. Early detection and treatment of prediabetes can restore blood glucose to normal levels, and the appropriate clinical management of diabetes can reduce long-term negative health outcomes and healthcare costs due to the disease. For these reasons, it is important to identify and understand the various personal characteristics that are associated with having diabetes.
 
-In this report, we use a subset of BRFSS data to explore a variety of factors associated with having diabetes or prediabetes, and build prediction models to estimate the probability of a survey respondent having diabetes. This report is part of a larger series of reports, each one focusing on a subset of BRFSS survey respondent defined by having a common level of education. The analyses below include descriptive statistical summaries, exploratory visualizations/graphs, and the creation and evaluation of prediction models for diabetic status.
+In this report, we use a subset of BRFSS data to explore a variety of factors associated with having diabetes or prediabetes, and build prediction models to estimate the probability of a survey respondent having diabetes. This report is part of a larger series of reports, each one focusing on a subset of BRFSS survey respondent defined by having a common level of education. The analyses below include descriptive statistical summaries, exploratory visualizations/graphs, and the creation and evaluation of prediction models for diabetic status for individuals with an education level of `r str_to_lower(params$title)`.
 
 The variables used in these analyses include individually-reported characteristics such as:
 
@@ -36,7 +35,11 @@ The variables used in these analyses include individually-reported characteristi
 
 ## Exploratory Data Analysis
 
+The codebook for the variables included in this analysis can be found here:  
+
 [Behavioral Risk Factor Surveillance System Codebook](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://www.cdc.gov/brfss/annual_data/2015/pdf/codebook15_llcp.pdf)
+
+We used these definitions to properly format and describe the data. 
 
 ```{r}
 #read in data 
@@ -141,6 +144,8 @@ subtitle <- diabetes_data$Education %>%
 
 ### Summary Statistics
 
+Univariate summary statistics of each variable can be seen below:
+
 ```{r}
 #show univariate summary statistics
 print(dfSummary(diabetes_data
@@ -200,6 +205,8 @@ with(diabetes_data,
 
 #### BMI
 
+We can see from the boxplots below that Individuals with diabetes or prediabetes have a higher BMI on average. 
+
 ```{r}
 #BMI boxplots
 
@@ -209,6 +216,8 @@ ggplot(data = diabetes_data, aes(y = BMI, fill = Diabetes_binary)) +
 ```
 
 #### Health Status (Past 30 Days)
+
+Individuals that do not have diabetes or prediabetes were more likely to report having 0 days in the past 30 days of not good mental or physical health. 
 
 ```{r}
 #reformat the not healthy days variables into long 
@@ -227,10 +236,13 @@ ggplot(data = health_days, aes(x = value, fill = Diabetes)) +
 
 #### Income
 
+There are more individuals in the dataset who reported income in the lower ranges, however those individuals with a household income below 15k were disproportionately more likely than higher income individuals to have diabetes or prediabetes.
+
 ```{r}
 
 ggplot(data = diabetes_data, aes(y = Income, fill = Diabetes_binary)) +
     geom_bar(position = 'dodge')
+    
 
 ```
 
@@ -293,6 +305,28 @@ train_control <- trainControl(method = 'cv',
 
 ### Logistic Regression [Heather]
 
+[Logistic regression](https://simple.wikipedia.org/wiki/Logistic_regression) is a generalized linear model appropriate to binary outcome data. The predictor variables may be continuous or categorical. It models the probability of success of the outcome class using the logistic function
+
+$$P(success) = \frac{e^{\beta_0 + B_1x_1 + B_2x_2 +... + B_nx_n}}{1 + e^{\beta_0 + B_1x_1 + B_2x_2 +... + B_nx_n}}$$
+
+In logistic regression the logit function links the probability to a linear combination of the parameters: 
+
+$$logit(p) = log(\frac{p}{1-p})$$
+
+It can be shown that: 
+
+$$log(\frac{p}{1-p}) = \beta_0 + \beta_1x_1 + \beta_2x_2 + ... + \beta_nx_n + \epsilon$$
+
+
+Aside from the dependent variable being binary Logistic regression does have a few other key assumptions: 
+
+* Independence of errors
+* The predictor variables are linearly related to the log odds/logit
+* Absence of Multicollinearity
+* Absence of strongly influential outliers
+
+For this project we fit three different logistic regression models
+
 ```{r}
 
 #note there are no tuning parameters available for this model
@@ -309,15 +343,14 @@ log_reg_2 <- train(Diabetes_binary ~ BMI + HighBP + HighChol + MentHlth,
                    metric="logLoss",
                    trControl = train_control)
 
+
+
+
 log_reg_3 <- train(Diabetes_binary ~ HighBP + HeartDiseaseorAttack + AnyHealthcare,
                    data = train_preprocessed, 
                    method = 'glm', family = 'binomial',
                    metric="logLoss",
                    trControl = train_control)
-
-log_reg_1$results
-log_reg_2$results
-log_reg_3$results
 
 
 ```
@@ -346,6 +379,7 @@ lasso <- train(Diabetes_binary ~ .,
                metric="logLoss",
                trControl = train_control,
                tuneGrid = expand.grid(alpha = 1, lambda = seq(0,1,0.005)))
+
 
 # lasso$bestTune
 # plot(lasso$finalModel, "lambda")
@@ -379,21 +413,34 @@ fancyRpartPlot(tree$finalModel)
 
 ### Random Forest [Heather]
 
-```{r}
+Random forest is an ensemble method which uses many trees (in our case classification trees) to predict the outcome. These trees are each fit to a different bootstrap sample of the original training set. Each bootstrap sample is sampled with replacement and has the same number of observations as the training set. Each model fit has a random selection of the variables is chosen. 
 
+
+```{r}
 set.seed(42)
 random_forest <- train(Diabetes_binary ~ .,
             data = train_preprocessed,
             method = "rf",
             trControl = train_control,
             metric="logLoss",
-            tuneGrid = data.frame(mtry = 1:15)
+            tuneGrid = data.frame(mtry = 1:ncol(train_preprocessed)-1)
             )
 
+#get the top n variables by importance where n = the best tune (best # of predictors chosen)
+variable_importance <- varImp(random_forest)$importance %>% arrange(-Overall) %>% head(random_forest$bestTune$mtry) %>%
+    rownames_to_column('variable') %>%
+    mutate(variable = fct_reorder(variable, Overall))
 
-random_forest$results
+#create lollipop plot of the top n variables by variable importance
+ggplot(variable_importance, aes(y = variable, x = Overall)) + 
+    geom_point() + 
+    geom_segment(aes(y=variable, yend=variable, x=0, xend=Overall)) +
+    xlab('Overall Importance')
 
 ```
+
+In our model we tuned the variable mtry which is the number of predictor variables to include in the models. The best tune turned out to be `r random_forest$bestTune$mtry`. The top `r random_forest$bestTune$mtry` variables by importance are shown above
+
 
 ### Ridge Regression [Andy]
 
@@ -423,6 +470,19 @@ ridge <- train(Diabetes_binary ~ .,
 
 ### Elastic Net [Heather]
 
+[Elastic net](https://en.wikipedia.org/wiki/Elastic_net_regularization) combines the features of both Lasso and Ridge regression. It does so by incorporating both of their penalty terms $L_1$ (Lasso) and $L_2$ (Ridge) into the loss function of the regression model. A weighted sum of the two penalties is taken as the regularization term. The penalty term is a linear combination of $L_1$ and $L_2$ controlled by a mixing term $\alpha$ when $\alpha = 1$ the penalty is purely L_1 (Lasso) and when $\alpha = 0$ the penalty is purely L_2 (Ridge). 
+
+Elastic net overcomes some of the limitations of Lasso: 
+
+* In the case of a large number of predictors with fewer observations (large p, small n) lasso will select n variables at most. 
+* In the case of highly corrolated variables Lasso tends to select one variable and ignore the others. 
+
+Elastic net overcomes these limitations by adding a quadratic to the penalty $||\beta||^2$. When used alone this penalty is ridge regression. 
+
+The estimates of elastic net are modeled as: 
+
+$$\hat\beta = \underset{\beta}argmin(||y=X\beta||^2 +\lambda _{2}\|\beta \|^{2}+\lambda _{1}\|\beta \|_{1} )$$
+
 ```{r}
 
 lambda <- seq(0, 3, 0.1)
@@ -442,24 +502,24 @@ elastic_net <- train(Diabetes_binary ~ .,
 
 
 
-elastic_net$results
+elastic_net$bestTune
 
 ```
 
 ## Final Model Selection
 
-```{r compare_logloss_on_test, eval=FALSE}
+```{r compare_logloss_on_test}
 # stack model objects into a list
-models <- list(log_reg_1 = log_reg_1,
-               log_reg_2 = log_reg_3,
-               log_reg_2 = log_reg_3,
+models <- list(logistic_regression_1 = log_reg_1,
+               logistic_regression_2 = log_reg_2,
+               logistic_regression_3 = log_reg_3,
                tree = tree,
                random_forest = random_forest,
                ridge = ridge,
                lasso = lasso,
                elastic_net = elastic_net)
 
-# create function to extract accuracy on test dataset
+# create function to extract logloss on test dataset
 get_logloss_on_test <- function(model){
   test_pred <- predict(model, newdata = test_preprocessed, type="prob")
   test_set <- data.frame(obs = test_preprocessed$Diabetes_binary, 
@@ -473,6 +533,13 @@ get_logloss_on_test <- function(model){
 # use function to get test set accuracy numbers
 perf <- sapply(models, get_logloss_on_test)
 perf
+
+#get the best performing model which minimizes logloss
+top_model <- names(which.min(perf)) %>%
+    str_replace_all('.logLoss|_', ' ') %>%
+    str_squish %>%
+    str_to_title
+
 ```
 
-The model with the highest accuracy is the `r substr(names(which.min(perf)),1,nchar(names(which.min(perf)))-8)` model with an accuracy = `r round(min(perf),3)`.
+The model with the lowest log loss is the `r top_model` model with a log loss of = `r round(min(perf),3)`.
