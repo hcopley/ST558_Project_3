@@ -234,6 +234,29 @@ ggplot(data = diabetes_data, aes(y = Income, fill = Diabetes_binary)) +
 
 ```
 
+
+
+#### BMI by Vegetables in Diet, across Sex
+
+```{r}
+
+ggplot(data = diabetes_data, aes(x=BMI, y=Veggies, fill=Sex )) + 
+  geom_boxplot()
+
+```
+
+
+#### BMI by Smoking Status, across Sex
+
+```{r}
+
+ggplot(data = diabetes_data, aes(x=BMI, y=Smoker, fill=Sex )) + 
+  geom_boxplot()
+
+```
+
+
+
 ## Modeling
 
 ### Data Partition
