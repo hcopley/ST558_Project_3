@@ -1,5 +1,4 @@
-ST 558 Project 3 Education Level: Never attended school or only
-kindergarten
+ST 558 Project 3 Education Level: Grades 1 through 8 (Elementary)
 ================
 Heather Copley & Andy Johnson
 2023-11-14
@@ -33,7 +32,8 @@ having diabetes. This report is part of a larger series of reports, each
 one focusing on a subset of BRFSS survey respondent defined by having a
 common level of education. The analyses below include descriptive
 statistical summaries, exploratory visualizations/graphs, and the
-creation and evaluation of prediction models for diabetic status.
+creation and evaluation of prediction models for diabetic status for
+individuals with an education level of grades 1 through 8 (elementary).
 
 The variables used in these analyses include individually-reported
 characteristics such as:
@@ -192,8 +192,8 @@ print(dfSummary(diabetes_data
 [factor]</td>
       <td align="left">Diabetes or prediabetes?</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. no</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. yes</td></tr></table></td>
-      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">127</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">73.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">47</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">27.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAGQAAAAsBAMAAABhxwBmAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAwUCeRmL7QAAADlJREFUSMdjYBheQIkEANWibEw0MBrVMqplWGkhI78IkgDI14JuuSJhLejeH9UyqmXEaCEjvwwXAACEPefSd7f2FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMy0xMS0xNVQwMzowNTowMiswMDowMLbi0FoAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjMtMTEtMTVUMDM6MDU6MDIrMDA6MDDHv2jmAAAAAElFTkSuQmCC"></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">2860</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">70.7%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">1183</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">29.3%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAGEAAAAsBAMAAACH7ssiAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAy8SC8VXoQAAADpJREFUSMdjYBg+QIlooADVoWxMLBjVMapjqOsgPX8IEg0EyNaBaTshHRg+NxrVMapjuOogPX8MBwAAAxXlSgHz3DUAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjMtMTEtMTVUMDM6NDc6MTgrMDA6MDBqFCw1AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIzLTExLTE1VDAzOjQ3OjE4KzAwOjAwG0mUiQAAAABJRU5ErkJggg=="></td>
       <td align="center">0
 (0.0%)</td>
     </tr>
@@ -202,8 +202,8 @@ print(dfSummary(diabetes_data
 [factor]</td>
       <td align="left">High Blood Pressure?</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. no</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. yes</td></tr></table></td>
-      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">86</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">49.4%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">88</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">50.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAEkAAAAsBAMAAADbZIgGAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAwUCeRmL7QAAADhJREFUOMtjYBi8QAkvEICqUjbGA4xGVY2qwqWKuPQliBeQpgq/jQrEuN54VNWoKlyqiEtfgxEAAMJWyJro6/6JAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTExLTE1VDAzOjA1OjAyKzAwOjAwtuLQWgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0xMS0xNVQwMzowNTowMiswMDowMMe/aOYAAAAASUVORK5CYII="></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">1654</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">40.9%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">2389</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">59.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAFMAAAAsBAMAAADr6JknAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAy8SC8VXoQAAADtJREFUOMtjYBhaQAkXEIQDAahSZWPswGhU6ahSeiklIb0KEgZkKFUiDBQIeAsJjCodVUpbpSSk16ECAAqn1I66oo3LAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTExLTE1VDAzOjQ3OjE4KzAwOjAwahQsNQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0xMS0xNVQwMzo0NzoxOCswMDowMBtJlIkAAAAASUVORK5CYII="></td>
       <td align="center">0
 (0.0%)</td>
     </tr>
@@ -212,8 +212,8 @@ print(dfSummary(diabetes_data
 [factor]</td>
       <td align="left">High Cholesterol?</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. no</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. yes</td></tr></table></td>
-      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">87</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">50.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">87</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">50.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAEgAAAAsBAMAAAA0puM4AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAwUCeRmL7QAAAC5JREFUOMtjYBicQAkvgCpSNsYDjEYVjSqCKyIqPQniBaQoGk2+o4ronnwHGwAAMAjFO7vLjXYAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjMtMTEtMTVUMDM6MDU6MDIrMDA6MDC24tBaAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIzLTExLTE1VDAzOjA1OjAyKzAwOjAwx79o5gAAAABJRU5ErkJggg=="></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">1878</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">46.5%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">2165</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">53.5%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAE0AAAAsBAMAAADSjyh8AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAy8SC8VXoQAAADtJREFUOMtjYBj8QAkPEAQCAag6ZWOcwGhU3ag6ctURm/4ECQBS1SkRAAqE/QEGo+pG1ZGjjtj0N5gBAG99zWIXaIm3AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTExLTE1VDAzOjQ3OjE4KzAwOjAwahQsNQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0xMS0xNVQwMzo0NzoxOCswMDowMBtJlIkAAAAASUVORK5CYII="></td>
       <td align="center">0
 (0.0%)</td>
     </tr>
@@ -222,8 +222,8 @@ print(dfSummary(diabetes_data
 [factor]</td>
       <td align="left">Cholesterol check in the past 5 years?</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. no</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. yes</td></tr></table></td>
-      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">7</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">4.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">167</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">96.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAH8AAAAsBAMAAAC+iXp5AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAwUCeRmL7QAAAEFJREFUSMdjYBgFIKCkpCRIFhCAGqBsbDRqwKgBowYMDwMoLg/I001NA5TIBQrwQCQTjBowasCoAYPNAIrLg5EOAIJ+CTW+RczsAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTExLTE1VDAzOjA1OjAyKzAwOjAwtuLQWgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0xMS0xNVQwMzowNTowMiswMDowMMe/aOYAAAAASUVORK5CYII="></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">112</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">2.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">3931</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">97.2%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAIEAAAAsBAMAAACwDMZTAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAy8SC8VXoQAAAEJJREFUSMdjYBgFMKCkJEgmEICaoGw0asKoCaMmDE8TKC8fyNVPTROUyAYKsJA0JheMmjBqwqgJg9sEysuHUcDAAADwIAuZPNl/rwAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMy0xMS0xNVQwMzo0NzoxOCswMDowMGoULDUAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjMtMTEtMTVUMDM6NDc6MTgrMDA6MDAbSZSJAAAAAElFTkSuQmCC"></td>
       <td align="center">0
 (0.0%)</td>
     </tr>
@@ -231,9 +231,9 @@ print(dfSummary(diabetes_data
       <td align="left">BMI
 [numeric]</td>
       <td align="left">Body Mass Index</td>
-      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 29.8 (7.3)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">14 &le; 28 &le; 57</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 8 (0.2)</td></tr></table></td>
-      <td align="left" style="vertical-align:middle">34 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHwAAABaBAMAAACIxS+mAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAwUCeRmL7QAAAIFJREFUWMPt2FEKgCAQRVG3YDvIdpD731uoQaZpOQRh3vch83NARHEYpcaOTjIZl1nfpcStCxwOh8PhcPj33Hc1RswXB9f+eTgGMQ8lHA6Hw//Na5/FA24re4C/wsOwpsCvBzknnpqY+7Vrnt3fNp69IQk3RyQ8KnceNbJy3h41djbBYsoTNDYTWQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMy0xMS0xNVQwMzowNTowMiswMDowMLbi0FoAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjMtMTEtMTVUMDM6MDU6MDIrMDA6MDDHv2jmAAAAAElFTkSuQmCC"></td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 29.5 (7)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">12 &le; 28 &le; 84</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 7 (0.2)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle">62 distinct values</td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHwAAABaBAMAAACIxS+mAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAy8SC8VXoQAAAINJREFUWMPt2FsKgCAQhWG3oDvIdtDsf2+NJGSEF1JI8D/g4/ckjGc0Zu3YO16z2ca8+S4icDgcDoeP504fqB6uFP4nDw2jg+s54HA4HA6fljct0nne9NDCl+ehTnXwaMbx+gdSkdcL5uS8XG+rPE4OX+T+2oEyXB7DxyX3kfAvMWvnBJDsmfcWz7XwAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTExLTE1VDAzOjQ3OjE4KzAwOjAwahQsNQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0xMS0xNVQwMzo0NzoxOCswMDowMBtJlIkAAAAASUVORK5CYII="></td>
       <td align="center">0
 (0.0%)</td>
     </tr>
@@ -244,8 +244,8 @@ print(dfSummary(diabetes_data
 in your entire life? [Note: 5 packs =
 100 cigarettes]</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. no</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. yes</td></tr></table></td>
-      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">108</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">62.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">66</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">37.9%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAFcAAAAsBAMAAADiAzldAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAwUCeRmL7QAAADpJREFUOMtjYBiaQIkYoABVrGxMBBhVPKp44BSTlJ4FiQEC5CjGYTF2xdg9aDSqeFTxYFFMUnoeagAAooDZVriyx3wAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjMtMTEtMTVUMDM6MDU6MDIrMDA6MDC24tBaAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIzLTExLTE1VDAzOjA1OjAyKzAwOjAwx79o5gAAAABJRU5ErkJggg=="></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">2083</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">51.5%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">1960</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">48.5%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAEoAAAAsBAMAAAAwUzMFAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAy8SC8VXoQAAADdJREFUOMtjYBi8QAk/gKpSNsYHjEZVjarCoYq49CWIH5CkCq99ioLEuH5U1agqnKqIS1+DEQAAM3LIvg1dg9QAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjMtMTEtMTVUMDM6NDc6MTgrMDA6MDBqFCw1AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIzLTExLTE1VDAzOjQ3OjE4KzAwOjAwG0mUiQAAAABJRU5ErkJggg=="></td>
       <td align="center">0
 (0.0%)</td>
     </tr>
@@ -254,8 +254,8 @@ in your entire life? [Note: 5 packs =
 [factor]</td>
       <td align="left">(Ever told) you had a stroke?</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. no</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. yes</td></tr></table></td>
-      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">160</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">92.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">14</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">8.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHsAAAAsBAMAAAC3YtoDAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAwUCeRmL7QAAAD5JREFUSMdjYBjZQIk8oADVrmxMFhjVPqp9VPtAaKcwvwuSBwSoox3sFPK1g4LOaFT7qPZR7UNDO4X5faQCAAxnBG3YUYPIAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTExLTE1VDAzOjA1OjAyKzAwOjAwtuLQWgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0xMS0xNVQwMzowNTowMiswMDowMMe/aOYAAAAASUVORK5CYII="></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">3697</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">91.4%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">346</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">8.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHoAAAAsBAMAAABYoLE9AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAy8SC8VXoQAAAD1JREFUSMdjYBi5QIk8ANWtbEwOMBrVPap7VDdddFOWvwXJA1TRDXaHIrm6waE2qntU96juQaqbsvw9EgEAfNwCLV+Gj1kAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjMtMTEtMTVUMDM6NDc6MTgrMDA6MDBqFCw1AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIzLTExLTE1VDAzOjQ3OjE4KzAwOjAwG0mUiQAAAABJRU5ErkJggg=="></td>
       <td align="center">0
 (0.0%)</td>
     </tr>
@@ -265,8 +265,8 @@ in your entire life? [Note: 5 packs =
       <td align="left">Coronary heart disease (CHD) or
 myocardial infarction (MI)?</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. no</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. yes</td></tr></table></td>
-      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">145</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">83.3%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">29</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">16.7%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHAAAAAsBAMAAABPgiH0AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAwUCeRmL7QAAADxJREFUSMdjYBgZQIlkANWobEwiMBrVOKpxVCMBjWTnR0GSAaUaEU5QJE0jInBGNY5qHNVIJY1k58fhDgAgHvYq9lWBRAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMy0xMS0xNVQwMzowNTowMiswMDowMLbi0FoAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjMtMTEtMTVUMDM6MDU6MDIrMDA6MDDHv2jmAAAAAElFTkSuQmCC"></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">3265</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">80.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">778</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">19.2%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAG0AAAAsBAMAAACd0iusAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAy8SC8VXoQAAAD1JREFUSMdjYBj+QIlEoADVp2xMGhjVN6pvVB+mPnLznyCJQIBCfchuIEUfUrgYjeob1Teqjzx95Oa/4QwA4/LzokRgoy0AAAAldEVYdGRhdGU6Y3JlYXRlADIwMjMtMTEtMTVUMDM6NDc6MTgrMDA6MDBqFCw1AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIzLTExLTE1VDAzOjQ3OjE4KzAwOjAwG0mUiQAAAABJRU5ErkJggg=="></td>
       <td align="center">0
 (0.0%)</td>
     </tr>
@@ -276,8 +276,8 @@ myocardial infarction (MI)?</td>
       <td align="left">Physical activity in past 30 days - not
 including job?</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. no</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. yes</td></tr></table></td>
-      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">79</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">45.4%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">95</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">54.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAE4AAAAsBAMAAAA5uJN/AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAwUCeRmL7QAAADpJREFUOMtjYBj8QAk3UBQEAag6ZWOcYFTdqDqy1RGb/gQJARLVKREChP0BBkaj6kbVkaGO2PQ3mAEA6NPNhmD7B9AAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjMtMTEtMTVUMDM6MDU6MDIrMDA6MDC24tBaAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIzLTExLTE1VDAzOjA1OjAyKzAwOjAwx79o5gAAAABJRU5ErkJggg=="></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">1742</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">43.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">2301</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">56.9%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAFEAAAAsBAMAAADvHUkaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAy8SC8VXoQAAADtJREFUOMtjYBg6QAknEIQCAahKZWMcwGhU5ahKWqkkPn0KEgSkq1QiCBQI+QgORlWOqqS2SuLT51AAAG1k0irt/KGkAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTExLTE1VDAzOjQ3OjE4KzAwOjAwahQsNQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0xMS0xNVQwMzo0NzoxOCswMDowMBtJlIkAAAAASUVORK5CYII="></td>
       <td align="center">0
 (0.0%)</td>
     </tr>
@@ -286,8 +286,8 @@ including job?</td>
 [factor]</td>
       <td align="left">Consume Fruit 1 or more times per day?</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. no</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. yes</td></tr></table></td>
-      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">64</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">36.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">110</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">63.2%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAFgAAAAsBAMAAAATCGLQAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAwUCeRmL7QAAADtJREFUOMtjYBiaQAkrUBREBVDFysbYwKjiUcWDRjFJ6VmQKECOYiWiAF4PogGjUcWjigdMMUnpeagBAKC52Xqdu2uwAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTExLTE1VDAzOjA1OjAyKzAwOjAwtuLQWgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0xMS0xNVQwMzowNTowMiswMDowMMe/aOYAAAAASUVORK5CYII="></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">1721</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">42.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">2322</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">57.4%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAFEAAAAsBAMAAADvHUkaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAy8SC8VXoQAAADtJREFUOMtjYBg6QAknEIQCAahKZWMcwGhU5ahKWqkkPn0KEgSkq1QiCBQI+QgORlWOqqS2SuLT51AAAG1k0irt/KGkAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTExLTE1VDAzOjQ3OjE4KzAwOjAwahQsNQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0xMS0xNVQwMzo0NzoxOCswMDowMBtJlIkAAAAASUVORK5CYII="></td>
       <td align="center">0
 (0.0%)</td>
     </tr>
@@ -297,8 +297,8 @@ including job?</td>
       <td align="left">Consume Vegetables 1 or more times per
 day?</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. no</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. yes</td></tr></table></td>
-      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">47</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">27.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">127</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">73.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAGQAAAAsBAMAAABhxwBmAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAwUCeRmL7QAAADtJREFUSMdjYBheQAkNKAriBlAtysaoYFTLqJYRo4WM/CJIAiBfixIJAIf38QCjUS2jWoaVFjLyy3ABAH4h59IJtEqkAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTExLTE1VDAzOjA1OjAyKzAwOjAwtuLQWgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0xMS0xNVQwMzowNTowMiswMDowMMe/aOYAAAAASUVORK5CYII="></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">1248</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">30.9%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">2795</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">69.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAF8AAAAsBAMAAADx1HmpAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAy8SC8VXoQAAADxJREFUSMdjYBgeQAkTCGIFAlANysbowGhUw6iG4aKB5PwgSCwgW4MSsUABp6dxgFENoxqGngaS88NQBwBiGuLmYQ2xpAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMy0xMS0xNVQwMzo0NzoxOCswMDowMGoULDUAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjMtMTEtMTVUMDM6NDc6MTgrMDA6MDAbSZSJAAAAAElFTkSuQmCC"></td>
       <td align="center">0
 (0.0%)</td>
     </tr>
@@ -309,8 +309,8 @@ day?</td>
 >=14 drinks per week and adult women>=7
 drinks per week)</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. no</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. yes</td></tr></table></td>
-      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">167</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">96.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">7</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">4.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAH8AAAAsBAMAAAC+iXp5AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAwUCeRmL7QAAAEBJREFUSMdjYBgFIKBELlCAGqBsTCYYNWDUgFEDBpsBFJcHguQCAWoZAHQMZQYoGxuNGjBqwKgBw8MAisuDkQ4AoAwJNRdFy/0AAAAldEVYdGRhdGU6Y3JlYXRlADIwMjMtMTEtMTVUMDM6MDU6MDIrMDA6MDC24tBaAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIzLTExLTE1VDAzOjA1OjAyKzAwOjAwx79o5gAAAABJRU5ErkJggg=="></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">3938</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">97.4%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">105</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">2.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAIEAAAAsBAMAAACwDMZTAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAy8SC8VXoQAAAEFJREFUSMdjYBgFMKBENlCAmqBsTC4YNWHUhFETBrcJlJcPgmQDAaqZoKREqQnKRqMmjJowasLwNIHy8mEUMDAAAHp9C5kaDo8zAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTExLTE1VDAzOjQ3OjE4KzAwOjAwahQsNQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0xMS0xNVQwMzo0NzoxOCswMDowMBtJlIkAAAAASUVORK5CYII="></td>
       <td align="center">0
 (0.0%)</td>
     </tr>
@@ -321,8 +321,8 @@ drinks per week)</td>
 including health insurance, prepaid
 plans such as HMO, etc.?</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. no</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. yes</td></tr></table></td>
-      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">37</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">21.3%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">137</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">78.7%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAGsAAAAsBAMAAACQzFvrAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAwUCeRmL7QAAAD1JREFUSMdjYBjeQAkZCBIEAlBtysYIYDSqbVTbqDbitJGZ3wirpKY2JdKAApYgIQKMahvVNqqNgvw2XAEAkHrxPj5MYHYAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjMtMTEtMTVUMDM6MDU6MDIrMDA6MDC24tBaAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIzLTExLTE1VDAzOjA1OjAyKzAwOjAwx79o5gAAAABJRU5ErkJggg=="></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">635</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">15.7%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">3408</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">84.3%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHEAAAAsBAMAAACgQErKAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAy8SC8VXoQAAAEBJREFUSMdjYBg5QAkOBIkEAlCdysZQYDSqc1TnqE7a6CQ/fxKrnpo6lUgGCughRDQY1Tmqc1QnaTrJz58jAQAAuEH4ajgMrBgAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjMtMTEtMTVUMDM6NDc6MTgrMDA6MDBqFCw1AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIzLTExLTE1VDAzOjQ3OjE4KzAwOjAwG0mUiQAAAABJRU5ErkJggg=="></td>
       <td align="center">0
 (0.0%)</td>
     </tr>
@@ -333,8 +333,8 @@ plans such as HMO, etc.?</td>
 when you needed to see a doctor but
 could not because of cost?</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. no</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. yes</td></tr></table></td>
-      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">133</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">76.4%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">41</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">23.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAGgAAAAsBAMAAAB7++DoAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAwUCeRmL7QAAADhJREFUSMdjYBieQIkkANWkbEwCMBrVNKppxGgiKz8JkgQo0YRqvSJxmlADYlTTqKZRTZTkp+EGADag7JqlbFr4AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTExLTE1VDAzOjA1OjAyKzAwOjAwtuLQWgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0xMS0xNVQwMzowNTowMiswMDowMMe/aOYAAAAASUVORK5CYII="></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">3330</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">82.4%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">713</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">17.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAG8AAAAsBAMAAACZJ/uRAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAy8SC8VXoQAAAD5JREFUSMdjYBgZQIlUoADVqGxMIhjVOKpxVCMhjWTnR0FSgQClGpEcQZpGROAYjWoc1TiqkToayc6Pwx0AAFrZ9gbddkdLAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTExLTE1VDAzOjQ3OjE4KzAwOjAwahQsNQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0xMS0xNVQwMzo0NzoxOCswMDowMBtJlIkAAAAASUVORK5CYII="></td>
       <td align="center">0
 (0.0%)</td>
     </tr>
@@ -344,8 +344,8 @@ could not because of cost?</td>
       <td align="left">Would you say that in general your
 health is:</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. excellent</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. very good</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">3. good</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">4. fair</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">5. poor</td></tr></table></td>
-      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">9</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">5.2%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">26</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">14.9%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">49</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">28.2%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">56</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">32.2%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">34</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">19.5%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAADMAAABmBAMAAACUzLRdAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAwUCeRmL7QAAAGtJREFUSMdjYKAvUFJSUhREBQJQKWVj41GpwSaFJ74EMQERUkowoIghBXQGBIxKDR4pPPFFXgIgJm3AABYXQoHRqBSdpPBECu0TgJKSAg4XAsGo1EBL4YkvyhMArjIKnDpHpQaFFJ74ohcAAIP++CzH+2fsAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTExLTE1VDAzOjA1OjAyKzAwOjAwtuLQWgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0xMS0xNVQwMzowNTowMiswMDowMMe/aOYAAAAASUVORK5CYII="></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">266</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">6.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">435</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">10.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">1216</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">30.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">1378</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">34.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">748</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">18.5%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAADUAAABmBAMAAACZ0sQaAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAy8SC8VXoQAAAGpJREFUSMftlLENgDAMBDMC2QCbDfj9dwsCioCSVxQh48LXXmPpXk7JHj2Q/GS53QYgnG/H+uUGI04vurcAezjHjvWb3cTAXirkdWdNuD8ca2SzCdW1eycQzpdj/T7YhLT/2Uk4p471s6QA4xP/Vt/8E3UAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjMtMTEtMTVUMDM6NDc6MTgrMDA6MDBqFCw1AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIzLTExLTE1VDAzOjQ3OjE4KzAwOjAwG0mUiQAAAABJRU5ErkJggg=="></td>
       <td align="center">0
 (0.0%)</td>
     </tr>
@@ -357,9 +357,9 @@ which includes stress, depression, and
 problems with emotions, for how many
 days during the past 30 days was your
 mental health not good?</td>
-      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 6.6 (10.8)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">0 &le; 0 &le; 30</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 10 (1.6)</td></tr></table></td>
-      <td align="left" style="vertical-align:middle">14 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHwAAABaBAMAAACIxS+mAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAwUCeRmL7QAAAFhJREFUWMPt17sNACAIAFFWcARxA91/NxPjpzAWUJlwVxHDa+gUiZ3ukqnJS5tVOBwOh8PhcDgcDofD4Z/w89t38bMNh48HvTLxe4jM9w2zi6+hvbk6k9h1CRTAlbpHirAAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjMtMTEtMTVUMDM6MDU6MDIrMDA6MDC24tBaAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIzLTExLTE1VDAzOjA1OjAyKzAwOjAwx79o5gAAAABJRU5ErkJggg=="></td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 5.2 (9.7)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">0 &le; 0 &le; 30</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 5 (1.9)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle">26 distinct values</td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHwAAABaBAMAAACIxS+mAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAy8SC8VXoQAAAHhJREFUWMPt2N0JwCAMRlFXsBtoN9D9d2tCUwio0NY+1fuBIMKR+POUENZOlqT4PMb3WiscDofD4XA4HA6Hw+Fw+I/4pu2SCS6kwL/g+hATXEZpO1/DTXvczuCMrsbzk6Q7XKkZz5vLGfBrakU4bjVZIZ7nlwlr5wAf/G6DMIMi1AAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMy0xMS0xNVQwMzo0NzoxOCswMDowMGoULDUAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjMtMTEtMTVUMDM6NDc6MTgrMDA6MDAbSZSJAAAAAElFTkSuQmCC"></td>
       <td align="center">0
 (0.0%)</td>
     </tr>
@@ -371,9 +371,9 @@ health, which includes physical illness
 and injury, for how many days during
 the past 30 days was your physical
 health not good?</td>
-      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 8.9 (12.4)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">0 &le; 0 &le; 30</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 20 (1.4)</td></tr></table></td>
-      <td align="left" style="vertical-align:middle">16 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHwAAABaBAMAAACIxS+mAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAwUCeRmL7QAAAGJJREFUWMPt2LENwCAMAEGvkGwQs0G8/25pkCkQlkMTKf6vEOIElCBSO/WOV3XerHfD4XA4HA6Hw+Fw+F/5eDht8bEaDofDS/Mz+IbK8OA8AfdN55krwdcD+5b7LSaum0ntHjLszMFnHgaaAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTExLTE1VDAzOjA1OjAyKzAwOjAwtuLQWgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0xMS0xNVQwMzowNTowMiswMDowMMe/aOYAAAAASUVORK5CYII="></td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 8.3 (11.6)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">0 &le; 1 &le; 30</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 15 (1.4)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle">29 distinct values</td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHwAAABaBAMAAACIxS+mAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAy8SC8VXoQAAAH5JREFUWMPt2NEJwCAMRVFXqBvUbmD2361KU5CmIjb0y/tAyM+BREHQENZOKtm3+Sg/RAQOh8PhcDgcDofD4T/zWB9vDl5IhsPhS/J6ezh4WdnJ7d9Tt6c3rjM0pttThz/m0DKavua4OZoxrzNYro0M+EWl4bojd9nw9DFh7Zx6hXz0eDSTMAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMy0xMS0xNVQwMzo0NzoxOCswMDowMGoULDUAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjMtMTEtMTVUMDM6NDc6MTgrMDA6MDAbSZSJAAAAAElFTkSuQmCC"></td>
       <td align="center">0
 (0.0%)</td>
     </tr>
@@ -383,8 +383,8 @@ health not good?</td>
       <td align="left">Do you have serious difficulty walking
 or climbing stairs?</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. no</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. yes</td></tr></table></td>
-      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">114</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">65.5%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">60</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">34.5%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAFsAAAAsBAMAAAD4P9nTAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAwUCeRmL7QAAADpJREFUSMdjYBjaQIk4oABVrmxMFBhVPqp8cConMb0LEgcEyFOO1WrcyrF51WhU+ajyoaKcxPQ+VAEAp+7eHpv1GdAAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjMtMTEtMTVUMDM6MDU6MDIrMDA6MDC24tBaAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIzLTExLTE1VDAzOjA1OjAyKzAwOjAwx79o5gAAAABJRU5ErkJggg=="></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">2500</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">61.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">1543</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">38.2%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAFcAAAAsBAMAAADiAzldAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAy8SC8VXoQAAADpJREFUOMtjYBiaQIkYoABVrGxMBBhVPKp44BSTlJ4FiQEC5CjGYTF2xdg9aDSqeFTxYFFMUnoeagAAooDZVriyx3wAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjMtMTEtMTVUMDM6NDc6MTgrMDA6MDBqFCw1AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIzLTExLTE1VDAzOjQ3OjE4KzAwOjAwG0mUiQAAAABJRU5ErkJggg=="></td>
       <td align="center">0
 (0.0%)</td>
     </tr>
@@ -393,8 +393,8 @@ or climbing stairs?</td>
 [factor]</td>
       <td align="left">Sex</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. female</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. male</td></tr></table></td>
-      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">102</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">58.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">72</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">41.4%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAFMAAAAsBAMAAADr6JknAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAwUCeRmL7QAAADlJREFUOMtjYBhaQIkwUIAqVTYmCEaVjiqlrVIS0qsgYSBAulKc1mIqxeUto1Glo0rppZSE9DpUAABz/9SO4WMxEAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMy0xMS0xNVQwMzowNTowMiswMDowMLbi0FoAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjMtMTEtMTVUMDM6MDU6MDIrMDA6MDDHv2jmAAAAAElFTkSuQmCC"></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">2181</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">53.9%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">1862</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">46.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAE0AAAAsBAMAAADSjyh8AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAy8SC8VXoQAAADlJREFUOMtjYBj8QIkAUICqUzbGD0bVjaojRx2x6U+QABAgUR0+O5HV4fGH0ai6UXXkqiM2/Q1mAAABOM1ikF0gxAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMy0xMS0xNVQwMzo0NzoxOCswMDowMGoULDUAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjMtMTEtMTVUMDM6NDc6MTgrMDA6MDAbSZSJAAAAAElFTkSuQmCC"></td>
       <td align="center">0
 (0.0%)</td>
     </tr>
@@ -403,8 +403,8 @@ or climbing stairs?</td>
 [factor]</td>
       <td align="left">Age Group</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. 18-24</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. 25-29</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">3. 30-34</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">4. 35-39</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">5. 40-44</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">6. 45-49</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">7. 50-54</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">8. 55-59</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">9. 60-64</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">10. 65-69</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">[ 3 others ]</td></tr></table></td>
-      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">4</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">2.3%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">1</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">7</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">4.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">7</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">4.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">10</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">5.7%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">12</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">6.9%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">22</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">12.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">20</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">11.5%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">26</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">14.9%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">17</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">9.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">48</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">27.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAC4AAADWBAMAAABcVq1wAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAwUCeRmL7QAAAJlJREFUWMPt1MsNwCAMA1BWYATCBrD/br1Q8Sk+xbSq5BzfhciOCOH8mMV5muciZzrKOUaOJ/mnHklu66Hcd1WLnOgoZ/X4L3+hR9t5rstCcpejnJk9pv0+Vc5zlDOzx+lWhn3qeFtyl6OcyT2m1ds+cpKjnMk99hfmffpGcpejnLk9Pj3Pv4Pc6Shnbo/DrHfVpshdjnI+ORdoFWD+EkRaDgAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMy0xMS0xNVQwMzowNTowMiswMDowMLbi0FoAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjMtMTEtMTVUMDM6MDU6MDIrMDA6MDDHv2jmAAAAAElFTkSuQmCC"></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">22</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.5%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">51</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.3%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">106</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">2.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">164</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">4.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">211</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">5.2%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">255</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">6.3%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">371</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">9.2%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">381</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">9.4%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">428</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">10.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">506</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">12.5%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">1548</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">38.3%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAADsAAADWBAMAAACd0efcAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAy8SC8VXoQAAAKZJREFUWMPt08ENwzAMA8CMEG5QqxvY++/WvIqkISwUlRGrIb/3MAHKy3JtCmhW8X8yRrKJb8UYyWZdflZxLnYGBQay8cffzVsVp2JnUPCEHVPpNm/iVOwMCp6wY7IOb82rOBM7g4In7pjI67vmrLt4WnYGBY+OSfz9oOCJPKbSbd7EedgZFDyRx3Q65WPz00cQT8vOoL9di8PG8zg2/4x4WnYGvSovxcC99A+0nLwAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjMtMTEtMTVUMDM6NDc6MTgrMDA6MDBqFCw1AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIzLTExLTE1VDAzOjQ3OjE4KzAwOjAwG0mUiQAAAABJRU5ErkJggg=="></td>
       <td align="center">0
 (0.0%)</td>
     </tr>
@@ -414,8 +414,8 @@ or climbing stairs?</td>
       <td align="left">What is the highest grade or year of
 school you completed?</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. Never attended school or </td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. Grades 1 through 8 (Eleme</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">3. Grades 9 through 11 (Some</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">4. Grade 12 or GED (High sch</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">5. College 1 year to 3 years</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">6. College 4 years or more (</td></tr></table></td>
-      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">174</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">100.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">0</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">0</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">0</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">0</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">0</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAIQAAAB4BAMAAADBOkf2AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAwUCeRmL7QAAAFxJREFUWMPt1DENgEAABMG3gATAAfj3RgEFNfchuWRWwJQ7ht5tQQ+xn587EAhEETHhF0vQPGJFIBCI/4hAMD4EAtFJBILxIRCITiIQjA+BQHQSgWB8CASik9DdBfXOQjDmnL8LAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTExLTE1VDAzOjA1OjAyKzAwOjAwtuLQWgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0xMS0xNVQwMzowNTowMiswMDowMMe/aOYAAAAASUVORK5CYII="></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">0</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">4043</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">100.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">0</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">0</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">0</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">0</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAIQAAAB4BAMAAADBOkf2AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAy8SC8VXoQAAAGBJREFUWMPt1LENgDAQBEG3QAmGDqD/3gggIMVnIV6aLWDCbU3P+jIeAoFAvCQCYSKxBt3Edgy3IxCIQsSEX/xjfB2BQCC+IwLB+BAIRE0iEIwPgUDUJALB+BAIRE1CVycKZEIwl8Xr+QAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMy0xMS0xNVQwMzo0NzoxOCswMDowMGoULDUAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjMtMTEtMTVUMDM6NDc6MTgrMDA6MDAbSZSJAAAAAElFTkSuQmCC"></td>
       <td align="center">0
 (0.0%)</td>
     </tr>
@@ -425,8 +425,8 @@ school you completed?</td>
       <td align="left">Is your annual household income from
 all sources:</td>
       <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. Less than $10,000</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. $10,000 to less than $15,</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">3. $15,000 to less than $20,</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">4. $20,000 to less than $25,</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">5. $25,000 to less than $35,</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">6. $35,000 to less than $50,</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">7. $50,000 to less than $75,</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">8. $75,000 or more</td></tr></table></td>
-      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">37</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">21.3%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">25</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">14.4%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">28</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">16.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">18</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">10.3%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">22</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">12.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">18</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">10.3%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">13</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">7.5%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">13</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">7.5%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAACYAAACfBAMAAABn1rYgAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAwUCeRmL7QAAAG1JREFUSMdjYKA+UEIGUDFlYwQwGhXDK4Yt/ASRAYlicLOQxGD2Go2KoYhhCyuqhL0Spr1gi0fF8IYV5WGviCIGsXdUDF0MW1hRI91j2gvJbqNi+MNqNN0P4XSPJqYMj/BRMUJhNRr2gys+qAkA0K76zqwABw0AAAAldEVYdGRhdGU6Y3JlYXRlADIwMjMtMTEtMTVUMDM6MDU6MDIrMDA6MDC24tBaAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIzLTExLTE1VDAzOjA1OjAyKzAwOjAwx79o5gAAAABJRU5ErkJggg=="></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">900</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">22.3%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">741</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">18.3%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">740</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">18.3%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">605</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">15.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">478</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">11.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">293</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">7.2%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">144</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">3.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">142</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">3.5%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAACcAAACfBAMAAACIFN0eAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5wsPAy8SC8VXoQAAAHJJREFUSMft0dEJgEAMA9AbQTewdoTbfzd/5C5qihxWEEk+30cLSSnvZMUsO3qFCEeQ9jljpmGEi9YQvgtDpNVpjl/OYYDefwtDpNXlzGEH9P5bGCKtLmEOO6O318IYaXWP57ArehXeI61Oc3wKaZ/Z2QAREARjNSjvcwAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMy0xMS0xNVQwMzo0NzoxOCswMDowMGoULDUAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjMtMTEtMTVUMDM6NDc6MTgrMDA6MDAbSZSJAAAAAElFTkSuQmCC"></td>
       <td align="center">0
 (0.0%)</td>
     </tr>
@@ -474,15 +474,15 @@ with(diabetes_data,
 <td>
 <strong align="center">no</strong>
 </td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">74</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">1398</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
-<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">86.0%</td>
+<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">84.5%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">12</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">256</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
-<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">14.0%</td>
+<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">15.5%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">86</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">1654</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
 <td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">100.0%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
@@ -491,15 +491,15 @@ with(diabetes_data,
 <td>
 <strong align="center">yes</strong>
 </td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">53</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">1462</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
-<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">60.2%</td>
+<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">61.2%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">35</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">927</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
-<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">39.8%</td>
+<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">38.8%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">88</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">2389</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
 <td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">100.0%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
@@ -508,15 +508,15 @@ with(diabetes_data,
 <td>
 <strong align="center">Total</strong>
 </td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">127</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">2860</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
-<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">73.0%</td>
+<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">70.7%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">47</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">1183</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
-<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">27.0%</td>
+<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">29.3%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">174</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">4043</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
 <td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">100.0%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
@@ -524,7 +524,7 @@ with(diabetes_data,
 </tbody>
 <tfoot>
 <tr>
-<td colspan="100"><em><strong>&nbsp;&#935;<sup>2</sup></strong> = 13.4263&nbsp;&nbsp;&nbsp;<strong>df</strong> = 1&nbsp;&nbsp;&nbsp;<strong>p</strong> = .0002</em><br/></td>
+<td colspan="100"><em><strong>&nbsp;&#935;<sup>2</sup></strong> = 255.7695&nbsp;&nbsp;&nbsp;<strong>df</strong> = 1&nbsp;&nbsp;&nbsp;<strong>p</strong> = .0000</em><br/></td>
 </tr>
 </tfoot>
 </table>
@@ -568,15 +568,15 @@ with(diabetes_data,
 <td>
 <strong align="center">no</strong>
 </td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">70</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">1541</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
-<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">80.5%</td>
+<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">82.1%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">17</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">337</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
-<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">19.5%</td>
+<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">17.9%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">87</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">1878</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
 <td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">100.0%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
@@ -585,15 +585,15 @@ with(diabetes_data,
 <td>
 <strong align="center">yes</strong>
 </td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">57</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">1319</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
-<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">65.5%</td>
+<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">60.9%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">30</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">846</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
-<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">34.5%</td>
+<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">39.1%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">87</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">2165</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
 <td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">100.0%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
@@ -602,15 +602,15 @@ with(diabetes_data,
 <td>
 <strong align="center">Total</strong>
 </td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">127</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">2860</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
-<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">73.0%</td>
+<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">70.7%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">47</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">1183</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
-<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">27.0%</td>
+<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">29.3%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">174</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">4043</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
 <td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">100.0%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
@@ -618,7 +618,7 @@ with(diabetes_data,
 </tbody>
 <tfoot>
 <tr>
-<td colspan="100"><em><strong>&nbsp;&#935;<sup>2</sup></strong> = 4.1977&nbsp;&nbsp;&nbsp;<strong>df</strong> = 1&nbsp;&nbsp;&nbsp;<strong>p</strong> = .0405</em><br/></td>
+<td colspan="100"><em><strong>&nbsp;&#935;<sup>2</sup></strong> = 215.9359&nbsp;&nbsp;&nbsp;<strong>df</strong> = 1&nbsp;&nbsp;&nbsp;<strong>p</strong> = .0000</em><br/></td>
 </tr>
 </tfoot>
 </table>
@@ -662,15 +662,15 @@ with(diabetes_data,
 <td>
 <strong align="center">no</strong>
 </td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">21</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">377</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
-<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">56.8%</td>
+<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">59.4%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">16</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">258</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
-<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">43.2%</td>
+<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">40.6%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">37</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">635</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
 <td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">100.0%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
@@ -679,15 +679,15 @@ with(diabetes_data,
 <td>
 <strong align="center">yes</strong>
 </td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">112</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">2953</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
-<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">81.8%</td>
+<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">86.6%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">25</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">455</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
-<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">18.2%</td>
+<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">13.4%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">137</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">3408</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
 <td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">100.0%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
@@ -696,15 +696,15 @@ with(diabetes_data,
 <td>
 <strong align="center">Total</strong>
 </td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">133</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">3330</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
-<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">76.4%</td>
+<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">82.4%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">41</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">713</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
-<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">23.6%</td>
+<td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">17.6%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
-<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">174</td>
+<td align="right" style="padding:0 0 0 15px;border-right:0;text-align:right">4043</td>
 <td align="left" style="padding:0 1px 0 4px;border-left:0;border-right:0;text-align:left">(</td>
 <td align="left" style="padding:0;border-left:0;border-right:0;text-align:right">100.0%</td>
 <td align="left" style="padding:0 15px 0 1px;border-left:0;text-align:right">)</td>
@@ -712,7 +712,7 @@ with(diabetes_data,
 </tbody>
 <tfoot>
 <tr>
-<td colspan="100"><em><strong>&nbsp;&#935;<sup>2</sup></strong> = 8.7651&nbsp;&nbsp;&nbsp;<strong>df</strong> = 1&nbsp;&nbsp;&nbsp;<strong>p</strong> = .0031</em><br/></td>
+<td colspan="100"><em><strong>&nbsp;&#935;<sup>2</sup></strong> = 272.3455&nbsp;&nbsp;&nbsp;<strong>df</strong> = 1&nbsp;&nbsp;&nbsp;<strong>p</strong> = .0000</em><br/></td>
 </tr>
 </tfoot>
 </table>
@@ -733,7 +733,7 @@ ggplot(data = diabetes_data, aes(y = BMI, fill = Diabetes_binary)) +
     geom_boxplot()
 ```
 
-![](Project-3-Work_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](Grades1_8_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 #### Health Status (Past 30 Days)
 
@@ -755,7 +755,7 @@ ggplot(data = health_days, aes(x = value, fill = Diabetes)) +
     facet_wrap(.~name + Diabetes) 
 ```
 
-![](Project-3-Work_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](Grades1_8_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 #### Income
 
@@ -769,7 +769,7 @@ ggplot(data = diabetes_data, aes(y = Income, fill = Diabetes_binary)) +
     geom_bar(position = 'dodge')
 ```
 
-![](Project-3-Work_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](Grades1_8_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 ## Modeling
 
@@ -981,27 +981,37 @@ tree <- train(Diabetes_binary ~ .,
 tree$bestTune
 ```
 
-    ##      cp
-    ## 20 0.19
+    ##     cp
+    ## 2 0.01
 
 ``` r
 tree$finalModel
 ```
 
-    ## n= 122 
+    ## n= 2831 
     ## 
     ## node), split, n, loss, yval, (yprob)
     ##       * denotes terminal node
     ## 
-    ## 1) root 122 33 no (0.7295082 0.2704918)  
-    ##   2) HeartDiseaseorAttackyes< 0.5 105 20 no (0.8095238 0.1904762) *
-    ##   3) HeartDiseaseorAttackyes>=0.5 17  4 yes (0.2352941 0.7647059) *
+    ##   1) root 2831 829 no (0.7071706 0.2928294)  
+    ##     2) HighBPyes< 0.5 1156 177 no (0.8468858 0.1531142) *
+    ##     3) HighBPyes>=0.5 1675 652 no (0.6107463 0.3892537)  
+    ##       6) HighCholyes< 0.5 569 147 no (0.7416520 0.2583480) *
+    ##       7) HighCholyes>=0.5 1106 505 no (0.5433996 0.4566004)  
+    ##        14) BMI< 0.1474251 636 251 no (0.6053459 0.3946541) *
+    ##        15) BMI>=0.1474251 470 216 yes (0.4595745 0.5404255)  
+    ##          30) HeartDiseaseorAttackyes< 0.5 321 157 no (0.5109034 0.4890966)  
+    ##            60) Age40-44>=0.5 13   2 no (0.8461538 0.1538462) *
+    ##            61) Age40-44< 0.5 308 153 yes (0.4967532 0.5032468)  
+    ##             122) GenHlthgood>=0.5 74  29 no (0.6081081 0.3918919) *
+    ##             123) GenHlthgood< 0.5 234 108 yes (0.4615385 0.5384615) *
+    ##          31) HeartDiseaseorAttackyes>=0.5 149  52 yes (0.3489933 0.6510067) *
 
 ``` r
 fancyRpartPlot(tree$finalModel)
 ```
 
-![](Project-3-Work_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](Grades1_8_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 ### Random Forest \[Heather\]
 
@@ -1034,11 +1044,11 @@ ggplot(variable_importance, aes(y = variable, x = Overall)) +
     xlab('Overall Importance')
 ```
 
-![](Project-3-Work_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](Grades1_8_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 In our model we tuned the variable mtry which is the number of predictor
-variables to include in the models. The best tune turned out to be 4.
-The top 4 variables by importance are shown above
+variables to include in the models. The best tune turned out to be 5.
+The top 5 variables by importance are shown above
 
 ### Ridge Regression \[Andy\]
 
@@ -1125,7 +1135,7 @@ elastic_net$bestTune
 ```
 
     ##   alpha lambda
-    ## 3     0    0.2
+    ## 1     0      0
 
 ## Final Model Selection
 
@@ -1156,14 +1166,10 @@ perf <- sapply(models, get_logloss_on_test)
 perf
 ```
 
-    ## logistic_regression_1.logLoss logistic_regression_2.logLoss 
-    ##                     1.6907023                     0.5400010 
-    ## logistic_regression_3.logLoss                  tree.logLoss 
-    ##                     0.5308952                     0.5830541 
-    ##         random_forest.logLoss                 ridge.logLoss 
-    ##                     0.5051678                     0.4904174 
-    ##                 lasso.logLoss           elastic_net.logLoss 
-    ##                     0.5118866                     0.4901077
+    ## logistic_regression_1.logLoss logistic_regression_2.logLoss logistic_regression_3.logLoss                  tree.logLoss         random_forest.logLoss 
+    ##                     0.5337326                     0.5518248                     0.5692361                     0.5626766                     0.5371146 
+    ##                 ridge.logLoss                 lasso.logLoss           elastic_net.logLoss 
+    ##                     0.5320282                     0.5297223                     0.5332108
 
 ``` r
 #get the best performing model which minimizes logloss
@@ -1173,5 +1179,5 @@ top_model <- names(which.min(perf)) %>%
     str_to_title
 ```
 
-The model with the lowest log loss is the Elastic Net model with a log
-loss of = 0.49.
+The model with the lowest log loss is the Lasso model with a log loss of
+= 0.53.
