@@ -1,5 +1,4 @@
-ST 558 Project 3 Education Level: College 1 year to 3 years (Some
-college or technical school)
+ST 558 Project 3 Education Level: College 1 year to 3 years (Some college or technical school)
 ================
 Heather Copley & Andy Johnson
 2023-11-16

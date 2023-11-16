@@ -1,5 +1,4 @@
-ST 558 Project 3 Education Level: Never attended school or only
-kindergarten
+ST 558 Project 3 Education Level: Never attended school or only kindergarten
 ================
 Heather Copley & Andy Johnson
 2023-11-16
