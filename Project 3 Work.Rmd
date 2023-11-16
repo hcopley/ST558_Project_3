@@ -213,6 +213,25 @@ ggplot(data = diabetes_data, aes(y = BMI, fill = Diabetes_binary)) +
 
 ```
 
+##### BMI by Vegetables in Diet, across Sex
+
+```{r}
+
+ggplot(data = diabetes_data, aes(x=BMI, y=Veggies, fill=Sex )) + 
+  geom_boxplot()
+
+```
+
+
+##### BMI by Smoking Status, across Sex
+
+```{r}
+
+ggplot(data = diabetes_data, aes(x=BMI, y=Smoker, fill=Sex )) + 
+  geom_boxplot()
+
+```
+
 #### Health Status (Past 30 Days)
 
 ```{r}
@@ -237,27 +256,6 @@ ggplot(data = health_days, aes(x = value, fill = Diabetes)) +
 ggplot(data = diabetes_data, aes(y = Income, fill = Diabetes_binary)) +
     geom_bar(position = 'dodge')
     
-
-```
-
-
-
-#### BMI by Vegetables in Diet, across Sex
-
-```{r}
-
-ggplot(data = diabetes_data, aes(x=BMI, y=Veggies, fill=Sex )) + 
-  geom_boxplot()
-
-```
-
-
-#### BMI by Smoking Status, across Sex
-
-```{r}
-
-ggplot(data = diabetes_data, aes(x=BMI, y=Smoker, fill=Sex )) + 
-  geom_boxplot()
 
 ```
 
