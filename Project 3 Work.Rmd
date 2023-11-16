@@ -301,7 +301,7 @@ In binary classification problems log loss is used to measure performance by com
 
 We can calculate log loss as follows:
 
-<pre>$$log loss = \frac{1}{N}\sum[y_i*log(p_i)+(1-y_i)*log(1-p_i)]$$</pre> 
+$$log loss = \frac{1}{N}\sum[y_i*log(p_i)+(1-y_i)*log(1-p_i)]$$
 
 Where:
 
