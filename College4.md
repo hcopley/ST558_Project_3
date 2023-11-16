@@ -1,5 +1,8 @@
-ST 558 Project 3 Education Level: College 4 years or more (College graduate)
+ST 558 Project 3 
+Education Level: College 4 years or more (College graduate)
+
 ================
+
 Heather Copley & Andy Johnson
 2023-11-16
 
