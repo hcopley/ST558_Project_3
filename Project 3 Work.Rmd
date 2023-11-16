@@ -299,11 +299,13 @@ In binary classification problems log loss is used to measure performance by com
 
 We can calculate log loss as follows:
 
-$$`log loss = \frac{1}{N}\sum[y_i*log(p_i)+(1-y_i)*log(1-p_i)]`$$ Where:
+<pre>$$log loss = \frac{1}{N}\sum[y_i*log(p_i)+(1-y_i)*log(1-p_i)]$$</pre> 
 
--   $`N`$ = the number of predictions
--   $`y_i`$ = the actual outcome of instance $i$
--   $`p_i`$ = the probability that the model predicts for instance $i$
+Where:
+
+-   $N$ = the number of predictions
+-   $y_i$ = the actual outcome of instance $i$
+-   $p_i$ = the probability that the model predicts for instance $i$
 
 Logloss has some advantages over other measures of performance. It works well with imbalanced classes in the outcome variable where measures like accuracy can be misleading.
 
@@ -381,7 +383,7 @@ knitr::kable(results, Caption = "Logistic Regression Model Log Loss")
 
 We choose the model with the lowest log loss which is 
 
-### LASSO [Andy]
+### LASSO
 
 The [LASSO (Least Absolute Shrinkage and Selection Operator)](https://en.wikipedia.org/wiki/Lasso_(statistics)) is a regression modeling technique that adds a penalty term to the loss/cost function. The penalty term (seen below) is the sum of the absolute values of the estimated beta coefficients (also called the L1-norm or "Manhattan" distance), multiplied by a hyperparameter $\lambda$. This penalty term is added to the appropriate loss function, and the model estimate procedure attempts to minimize the entire quantity.
 
@@ -565,6 +567,8 @@ elastic_net$results %>%
 
 ## Final Model Selection
 
+In final our final model selection we want to apply our models to the test set. 
+
 ```{r compare_logloss_on_test}
 # stack model objects into a list
 models <- list(logistic_regression_1 = log_reg_1,
@@ -599,4 +603,4 @@ top_model <- names(which.min(perf)) %>%
 
 ```
 
-The model with the lowest log loss is the `r top_model` model with a log loss of = `r round(min(perf),3)`.
+The model with the lowest log loss based on the test set is the `r top_model` model with a log loss of = `r round(min(perf),3)`.
