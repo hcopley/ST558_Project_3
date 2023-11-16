@@ -34,9 +34,9 @@ This code was placed into a Source.R file and run with the command: `source('Sou
 
 You can view each of the automated reports by clicking the links below
 
-* [Never attended school or only kindergarten](Grades0-k.md)
-* [Grades 1 through 8 (Elementary)](Grades1-8.md)
-* [Grades 9 through 11 (Some high school)](Grades9-11.md)
-* [Grade 12 or GED (High school graduate)](Grades12-GED.md)
-* [College 1 year to 3 years (Some College)](College1-3.md)
+* [Never attended school or only kindergarten](Grades0tok.md)
+* [Grades 1 through 8 (Elementary)](Grades1to8.md)
+* [Grades 9 through 11 (Some high school)](Grades9to11.md)
+* [Grade 12 or GED (High school graduate)](Grades12toGED.md)
+* [College 1 year to 3 years (Some College)](College1to3.md)
 * [College 4 years or more (College graduate)](College4.md)
