@@ -300,11 +300,11 @@ test_preprocessed <- predict(pre_process_values, diabetes_test)
 
 ### Log Loss
 
-In binary classification problems log loss is used to measure performance by comparing the predicted values to the actual values. Log loss increases as the predicted probability diverges further away from the actual. Log loss is a value between 0 and 1 with a perfect model having a log loss of 0.
+In binary classification problems log loss also known as [cross-entropy](https://en.wikipedia.org/wiki/Cross-entropy#Cross-entropy_loss_function_and_logistic_regression) is used to measure performance by comparing the predicted values to the actual values. Log loss increases as the predicted probability diverges further away from the actual. Log loss is a value between 0 and $\infty$ with a perfect model having a log loss of 0.
 
 We can calculate log loss as follows:
 
-$$log loss = \frac{1}{N}\sum[y_i*log(p_i)+(1-y_i)*log(1-p_i)]$$
+$$log loss = -\frac{1}{N}\sum[y_i*log(p_i)+(1-y_i)*log(1-p_i)]$$
 
 Where:
 
