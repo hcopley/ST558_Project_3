@@ -450,7 +450,7 @@ tree <- train(Diabetes_binary ~ .,
 #get the best tune
 tree$results %>%
     filter(logLoss == min(logLoss)) %>%
-     filter(cp == ridge$bestTune$cp) %>%
+     filter(cp == tree$bestTune$cp) %>%
     knitr::kable(row.names = FALSE, caption = "Classification Tree Best Fit")
 
 #if there is more than a root node in the final model then create a tree plot:
