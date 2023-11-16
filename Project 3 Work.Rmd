@@ -3,8 +3,10 @@ title: "`r paste('ST 558 Project 3 \n Education Level: ', params$title)`"
 
 author: "Heather Copley & Andy Johnson"
 date: "`r Sys.Date()`"
-output: github_document
-dfpring: paged
+output: 
+    html_document:
+        keep_md: true
+dfprint: paged
 params:
     education: 4
     title: "Never attended school or only kindergarten"
