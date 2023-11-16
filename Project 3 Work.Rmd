@@ -567,7 +567,7 @@ elastic_net$results %>%
 
 ## Final Model Selection
 
-In final our final model selection we want to apply our models to the test set. 
+In final our final model selection we want to applied our models to the test set. 
 
 ```{r compare_logloss_on_test}
 # stack model objects into a list

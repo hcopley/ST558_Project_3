@@ -14,3 +14,4 @@ list.files() %>%
     discard(str_detect(., '_includes')) %>%
     map(file.remove)
 
+
