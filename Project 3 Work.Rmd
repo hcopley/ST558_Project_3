@@ -6,7 +6,7 @@ date: "`r Sys.Date()`"
 output: github_document
 dfpring: paged
 params:
-    education: 1
+    education: 4
     title: "Never attended school or only kindergarten"
 ---
 
@@ -134,11 +134,11 @@ descriptions <- c("Diabetes or prediabetes?"
 #add variable descriptions as labels
 label(diabetes_data) <- descriptions
 
-subtitle <- diabetes_data$Education %>%
-    droplevels() %>%
-    unique() %>%
-    as.character() %>%
-    paste0('Education Level: ', .)
+#subtitle <- diabetes_data$Education %>%
+#    droplevels() %>%
+#    unique() %>%
+#    as.character() %>%
+#    paste0('Education Level: ', .)
 
 ```
 
@@ -205,8 +205,6 @@ with(diabetes_data,
 
 #### BMI
 
-We can see from the boxplots below that Individuals with diabetes or prediabetes have a higher BMI on average. 
-
 ```{r}
 #BMI boxplots
 
@@ -216,8 +214,6 @@ ggplot(data = diabetes_data, aes(y = BMI, fill = Diabetes_binary)) +
 ```
 
 #### Health Status (Past 30 Days)
-
-Individuals that do not have diabetes or prediabetes were more likely to report having 0 days in the past 30 days of not good mental or physical health. 
 
 ```{r}
 #reformat the not healthy days variables into long 
@@ -235,8 +231,6 @@ ggplot(data = health_days, aes(x = value, fill = Diabetes)) +
 ```
 
 #### Income
-
-There are more individuals in the dataset who reported income in the lower ranges, however those individuals with a household income below 15k were disproportionately more likely than higher income individuals to have diabetes or prediabetes.
 
 ```{r}
 
@@ -366,15 +360,28 @@ log_reg_2 <- train(Diabetes_binary ~ BMI + HighBP + HighChol + MentHlth,
                    metric="logLoss",
                    trControl = train_control)
 
-
 log_reg_3 <- train(Diabetes_binary ~ HighBP + HeartDiseaseorAttack + AnyHealthcare,
                    data = train_preprocessed, 
                    method = 'glm', family = 'binomial',
                    metric="logLoss",
                    trControl = train_control)
 
+#choose the best model: 
+results <- tibble( 'model' = c('full model',  
+                  'BMI + HighBP + HighChol + MentHlth', 
+                  'HighBP + HeartDiseaseorAttack + AnyHealthcare' 
+                  ),
+        'Log Loss' = c(log_reg_1$results$logLoss,
+                        log_reg_2$results$logLoss,
+                        log_reg_3$results$logLoss
+                       ))
+
+
+knitr::kable(results, Caption = "Logistic Regression Model Log Loss")
 
 ```
+
+We choose the model with the lowest log loss which is 
 
 ### LASSO [Andy]
 
@@ -392,7 +399,7 @@ In summary, there are two reasons why you would want to use the LASSO over stand
 2.  You want a final model that is not over-fit so it can predict well on data it hasn't yet seen (and you prefer to stay within a linear model paradigm).
 
 ```{r}
-
+#fit lasso
 set.seed(42)
 lasso <- train(Diabetes_binary ~ ., 
                data = train_preprocessed, 
@@ -401,12 +408,19 @@ lasso <- train(Diabetes_binary ~ .,
                trControl = train_control,
                tuneGrid = expand.grid(alpha = 1, lambda = seq(0,1,0.005)))
 
+#get the best tune
+lasso$results %>%
+    filter(logLoss == min(logLoss)) %>%
+    knitr::kable(row.names = FALSE, caption = "LASSO Best Fit")
 
-# lasso$bestTune
+
+
 # plot(lasso$finalModel, "lambda")
 # abline(v = log(lasso$bestTune$lambda), lty = 2)
 # text(x=log(lasso$bestTune$lambda), y=0, labels="Lambda for\nmin CV-LogLoss", cex=0.75, adj=0.55, srt=90)
 ```
+
+
 
 ### Classification Tree [Andy]
 
@@ -428,8 +442,10 @@ tree <- train(Diabetes_binary ~ .,
                   trControl = train_control,
                   tuneGrid = expand.grid(cp=seq(0,1,0.01)))
 
-tree$bestTune
-tree$finalModel
+#get the best tune
+tree$results %>%
+    filter(logLoss == min(logLoss)) %>%
+    knitr::kable(row.names = FALSE, caption = "Classification Tree Best Fit")
 
 #if there is more than a root node in the final model then create a tree plot:
 if (length(tree$finalModel$splits) > 0) {
@@ -440,21 +456,31 @@ fancyRpartPlot(tree$finalModel)
 
 ### Random Forest [Heather]
 
-Random forest is an ensemble method which uses many trees (in our case classification trees) to predict the outcome. These trees are each fit to a different bootstrap sample of the original training set. Each bootstrap sample is sampled with replacement and has the same number of observations as the training set. Each model fit has a random selection of the variables is chosen. 
+Random forest is an ensemble method which uses many trees (in our case classification trees) to predict the outcome. These trees are each fit to a different bootstrap sample of the original training set. Each bootstrap sample is sampled with replacement and has the same number of observations as the training set. Each tree fit has a random selection of the variables chosen.
 
 
-```{r, eval = F}
+```{r}
 set.seed(42)
 random_forest <- train(Diabetes_binary ~ .,
             data = train_preprocessed,
             method = "ranger",
+            num.trees = 100,
+            importance = 'impurity', 
             trControl = train_control,
             metric="logLoss",
-            tuneGrid = data.frame(mtry = 1:ncol(train_preprocessed)-1, min.node.size = 1, splitrule = 'gini')
+            tuneGrid = expand.grid(mtry = 1:7, min.node.size = 1, splitrule = 'gini')
             )
 
+
+#get the best tune
+random_forest$results %>%
+    filter(logLoss == min(logLoss)) %>%
+    knitr::kable(row.names = FALSE, caption = "Random Forest Best Fit")
+
 #get the top n variables by importance where n = the best tune (best # of predictors chosen)
-variable_importance <- varImp(random_forest)$importance %>% arrange(-Overall) %>% head(random_forest$bestTune$mtry) %>%
+variable_importance <- varImp(random_forest)$importance %>% 
+    arrange(-Overall) %>% 
+    head(20) %>%
     rownames_to_column('variable') %>%
     mutate(variable = fct_reorder(variable, Overall))
 
@@ -466,7 +492,7 @@ ggplot(variable_importance, aes(y = variable, x = Overall)) +
 
 ```
 
-In our model we tuned the variable mtry which is the number of predictor variables to include in the models. The best tune turned out to be `r random_forest$bestTune$mtry`. The top `r random_forest$bestTune$mtry` variables by importance are shown above
+In our model we tuned the variable mtry which is the number of predictor variables to include in the models. The best tune turned out to be `r random_forest$bestTune$mtry`. The top 10 variables by importance are shown above
 
 
 ### Ridge Regression [Andy]
@@ -489,10 +515,12 @@ ridge <- train(Diabetes_binary ~ .,
                trControl = train_control,
                tuneGrid = expand.grid(alpha = 0, lambda = seq(0,1,0.005)))
 
-# ridge$bestTune
-# plot(ridge$finalModel, "lambda")
-# abline(v = log(ridge$bestTune$lambda), lty = 2)
-# text(x=log(ridge$bestTune$lambda), y=0, labels="Lambda for\nmin CV-LogLoss", cex=0.75, adj=0.55, srt=90)
+#get the best tune
+ridge$results %>%
+    filter(logLoss == min(logLoss)) %>%
+    filter(lambda == ridge$bestTune$lambda) %>%
+    knitr::kable(row.names = FALSE, caption = "Ridge Regression Best Fit")
+
 ```
 
 ### Elastic Net [Heather]
@@ -529,7 +557,10 @@ elastic_net <- train(Diabetes_binary ~ .,
 
 
 
-elastic_net$bestTune
+#get the best tune
+elastic_net$results %>%
+    filter(logLoss == min(logLoss)) %>%
+    knitr::kable(row.names = FALSE, caption = "Elastic Net Best Fit")
 
 ```
 
@@ -541,7 +572,7 @@ models <- list(logistic_regression_1 = log_reg_1,
                logistic_regression_2 = log_reg_2,
                logistic_regression_3 = log_reg_3,
                tree = tree,
-               #random_forest = random_forest,
+               random_forest = random_forest,
                ridge = ridge,
                lasso = lasso,
                elastic_net = elastic_net)
