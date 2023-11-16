@@ -10,6 +10,6 @@ rmarkdown::render("Project 3 Work.Rmd", output_format = 'github_document', param
 
 #remove all html files (keeping only the .md files)
 list.files() %>%
-    keep(str_detect(., '.html')) %>% 
+    keep(str_detect(., '.html|_files')) %>% 
     map(file.remove)
 
